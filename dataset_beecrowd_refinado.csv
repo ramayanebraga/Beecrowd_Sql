@@ -1,0 +1,3437 @@
+problema_id,titulo,autor,url,enunciado,nivel,num_resolvidos,num_fks_entrada,entrada_tem_ddl_avancado,enunciado_num_sentencas,enunciado_riqueza_lexica,num_conceitos_total,faixa_conceitual,conceito_primario,conceitos_lista,usa_where,usa_order_by,usa_distinct,usa_like,usa_in,usa_between,usa_agregacao,usa_join,usa_group_by,usa_having,usa_subconsulta,usa_subconsulta_correlacionada,usa_union,usa_case,usa_funcao_data,usa_tratamento_null,usa_cast,usa_recursao,usa_funcao_janela,usa_pivot,usa_funcao_string,sql_entrada,sql_saida,complexidade_tecnica,discrepancia_nivel_complexidade,cluster_k2,cluster_k3
+2602,Select Básico,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2602,"Sua empresa está fazendo um levantamento de quantos clientes estão cadastrados nos estados, porém, faltou levantar os dados do estado do Rio Grande do Sul. Então você deve Exibir o nome de todos os clientes cujo estado seja ‘RS’.",4,41417,0,0,2,0.846,1,Básico,WHERE,WHERE,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2602
+
+CREATE TABLE customers (
+  id NUMERIC PRIMARY KEY,
+  name CHARACTER VARYING (255),
+  street CHARACTER VARYING (255),
+  city CHARACTER VARYING (255),
+  state CHAR (2),
+  credit_limit NUMERIC
+);
+
+INSERT INTO customers (id, name, street, city, state, credit_limit)
+VALUES 
+  (1,	'Pedro Augusto da Rocha',	'Rua Pedro Carlos Hoffman',	'Porto Alegre',	'RS',	700.00),
+  (2,	'Antonio Carlos Mamel',	'Av. Pinheiros', 'Belo Horizonte',	'MG',	3500.50),
+  (3,	'Luiza Augusta Mhor',	'Rua Salto Grande',	'Niteroi',	'RJ',	4000.00),	
+  (4,	'Jane Ester',	'Av 7 de setembro',	'Erechim',	'RS',	800.00),
+  (5, 'Marcos Antônio dos Santos',	'Av Farrapos',	'Porto Alegre',	'RS',	4250.25);
+
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE customers; --",SELECT name from customers where state= 'RS';,1.5,1.169,0,0
+2603,Endereço dos Clientes,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2603,"A empresa fará um evento comemorando os 20 anos de mercado, e para isso faremos uma grande comemoração na cidade de Porto Alegre. Queremos também convidar todos os nossos clientes que estão cadastrados nessa cidade.O seu trabalho é nos passar os nomes e os endereços dos clientes que moram em 'Porto Alegre', para entregar os convites pessoalmente.",1,36554,0,0,3,0.793,1,Básico,WHERE,WHERE,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2603
+
+CREATE TABLE customers (
+  id NUMERIC PRIMARY KEY,
+  name CHARACTER VARYING (255),
+  street CHARACTER VARYING (255),
+  city CHARACTER VARYING (255),
+  state CHAR (2),
+  credit_limit NUMERIC
+);
+
+INSERT INTO customers (id, name, street, city, state, credit_limit)
+VALUES
+  (1,	'Pedro Augusto da Rocha',	'Rua Pedro Carlos Hoffman',	'Porto Alegre',	'RS',	700.00),
+  (2,	'Antonio Carlos Mamel',	'Av. Pinheiros',	'Belo Horizonte',	'MG',	3500.50),	
+  (3,	'Luiza Augusta Mhor,',	'Rua Salto Grande',	'Niteroi',	'RJ',	4000.00),
+  (4,	'Jane Ester',	'Av 7 de setembro',	'Erechim',	'RS',	800.00),
+  (5,	'Marcos Antônio dos Santos',	'Av Farrapos',	'Porto Alegre',	'RS',	4250.25);
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE customers; --","SELECT name,street from customers where city = 'Porto Alegre';",1.5,-0.289,0,0
+2604,Menores que 10 ou Maiores que 100,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2604,O setor financeiro da empresa precisa de um relatório que mostre o código e o nome dos produtos cujo preço são menores que 10 ou maiores que 100.,2,32834,0,0,1,0.857,1,Básico,WHERE,WHERE,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2604
+
+CREATE TABLE products (
+  id NUMERIC PRIMARY KEY,
+  name CHARACTER VARYING (255),
+  amount NUMERIC,
+  price NUMERIC
+);
+
+INSERT INTO products (id, name, amount, price)
+VALUES 
+  (1,	'Two-door wardrobe',	100,	80),
+  (2,	'Dining table',	1000,	560),
+  (3,	'Towel holder',	10000,	5.50),
+  (4,	'Computer desk',	350,	100),
+  (5,	'Chair',	3000,	210.64),
+  (6,	'Single bed',	750,	99);
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE products; --","SELECT id,name FROM products where price < 10 or price > 100;",1.5,0.197,0,0
+2605,Representantes Executivos,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2605,"O setor financeiro precisa de um relatório sobre os fornecedores dos produtos que vendemos. Os relatórios contemplam todas as categorias, mas por algum motivo, os fornecedores dos produtos cuja categoria é a executiva, não estão no relatório.
+
+Seu trabalho é retornar os nomes dos produtos e dos fornecedores cujo código da categoria é 6.",4,25357,2,1,3,0.741,2,Intermediário,JOIN,"WHERE, JOIN",1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2605
+
+CREATE TABLE categories (
+  id numeric PRIMARY KEY,
+  name varchar
+);
+
+CREATE TABLE providers (
+  id numeric PRIMARY KEY,
+  name varchar(50),
+  street varchar(50),
+  city varchar(50),
+  state varchar(2)
+);
+
+CREATE TABLE products (
+  id numeric PRIMARY KEY,
+  name varchar(50),
+  amount numeric,
+  price numeric(7,2),
+  id_providers numeric REFERENCES providers (id),
+  id_categories numeric REFERENCES categories (id)
+);
+
+
+INSERT INTO categories (id , name)
+VALUES 
+  (1,	'old stock'),
+  (2,	'new stock'),
+  (3,	'modern'),
+  (4,	'commercial'),
+  (5,	'recyclable'),
+  (6,	'executive'),
+  (7,	'superior'),
+  (8,	'wood'),
+  (9,	'super luxury'),
+  (10,	'vintage');
+  
+INSERT INTO providers (id, name, street, city, state)
+VALUES 
+  (1,	'Henrique'	,'Av Brasil',	'Rio de Janeiro',	'RJ'),
+  (2,	'Marcelo Augusto',	'Rua Imigrantes',	'Belo Horizonte',	'MG'),
+  (3,	'Caroline Silva', 'Av São Paulo',	'Salvador',	'BA'),
+  (4,	'Guilerme Staff',	'Rua Central',	'Porto Alegre',	'RS'),
+	(5,	'Isabela Moraes',	'Av Juiz Grande',	'Curitiba',	'PR'),
+  (6,	'Francisco Accerr',	'Av Paulista',	'São Paulo',	'SP');
+  
+INSERT INTO products (id, name, amount, price, id_providers, id_categories)
+VALUES
+  (1,	'Two-door wardrobe',	100,	800,	6,	8),
+  (2,	'Dining table',	1000,	560,	1,	9),	
+  (3,	'Towel holder',	10000,	25.50,	5,	1),
+  (4,	'Computer desk',	350,	320.50,	4,	6),
+  (5,	'Chair',	3000,	210.64,	3,	6),
+  (6,	'Single bed',	750,	460,	1,	2);
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE products, providers, categories; --","SELECT products.name, providers.name
+  from products inner join providers
+  on products.id_providers= providers.id
+  where id_categories = 6;",5.5,0.191,0,0
+2606,Categorias,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2606,"Quando os dados foram migrados de Banco de Dados, houve um pequeno mal-entendido por parte do antigo DBA.
+
+Seu chefe precisa que você exiba o código e o nome dos produtos, cuja categoria inicie com 'super'.",3,22877,1,0,2,0.919,4,Intermediário,JOIN,"WHERE, LIKE, JOIN, Função de string",1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2606
+
+CREATE TABLE categories (
+  id numeric PRIMARY KEY,
+  name varchar
+);
+
+CREATE TABLE products (
+  id numeric PRIMARY KEY,
+  name varchar(50),
+  amount numeric,
+  price numeric(7,2),
+  id_categories numeric REFERENCES categories (id)
+);
+
+
+INSERT INTO categories (id, name)
+VALUES 
+  (1,	'old stock'),
+  (2,	'new stock'),
+  (3,	'modern'),
+  (4,	'commercial'),
+  (5,	'recyclable'),
+  (6,	'executive'),
+  (7,	'superior'),
+  (8,	'wood'),
+  (9,	'super luxury'),
+  (10,	'vintage');
+  
+INSERT INTO products (id , name, amount, price, id_categories)
+VALUES
+  (1,	'Lampshade',	100,	800,	4),
+  (2,	'Table for painting',	1000,	560,	9),
+  (3,	'Notebook desk',	10000,	25.50,	9),
+  (4,	'Computer desk',	350,	320.50,	6),
+  (5,	'Chair',	'3000',	'210.64',	9),	
+  (6,	'Home alarm',	750,	460,	4);
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE products, categories; --","SELECT products.id, products.name
+FROM products 
+INNER JOIN categories 
+ON products.id_categories = categories.id
+WHERE lower(categories.name) LIKE 'super%';",5.5,-0.295,0,0
+2607,Cidades em Ordem Alfabética,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2607,"Todos os meses a empresa pede um relatório das cidades que os fornecedores estão cadastrados. Dessa vez não vai ser diferente, faça uma consulta no Banco de Dados que retorne todas as cidades dos fornecedores, mas em ordem alfabética.
+
+OBS: Você não deve mostrar cidades repetidas.",1,25838,0,1,3,0.87,1,Básico,ORDER BY,ORDER BY,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2607
+
+CREATE TABLE providers (
+  id numeric PRIMARY KEY,
+  name varchar(50),
+  street varchar(50),
+  city varchar(50),
+  state varchar(2)
+);
+
+INSERT INTO providers (id, name, street, city, state)
+VALUES 
+  (1,	'Henrique',	'Av Brasil',	'Rio de Janeiro',	'RJ'),
+  (2,	'Marcelo Augusto',	'Rua Imigrantes',	'Belo Horizonte',	'MG'),
+  (3,	'Caroline Silva',	'Av São Paulo',	'Salvador',	'BA'),
+  (4,	'Guilerme Staff',	'Rua Central',	'Porto Alegre',	'RS'),
+  (5,	'Isabela Moraes',	'Av Juiz Grande',	'Curitiba',	'PR'),
+  (6,	'Francisco Accerr',	'Av Paulista',	'São Paulo',	'SP');
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE providers; --",SELECT city FROM providers ORDER by city asc;,2.5,-0.533,0,0
+2608,Maior e Menor Preço,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2608,"O setor financeiro da nossa empresa, está querendo saber os menores e maiores valores dos produtos, que vendemos.
+
+Para isso exiba somente o maior e o menor preço da tabela produtos.",1,22920,0,0,2,0.839,1,Básico,Agregação,Agregação,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"CREATE TABLE products (
+  id numeric PRIMARY KEY,
+  name varchar(50),
+  amount numeric,
+  price numeric(7,2)
+);
+
+INSERT INTO products (id, name, amount, price)
+VALUES
+  (1,	'Two-doors wardrobe',	100,	800),
+  (2,	'Dining table',	1000,	560),
+  (3,	'Towel holder',	10000,	25.50),
+  (4,	'Computer desk',	350,	320.50),
+  (5,	'Chair',	3000,	210.64),
+  (6,	'Single bed',	750,	460);
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE products; --","SELECT Max(price), min (price) from products;",1.5,-0.289,0,0
+2609,Produtos por Categorias,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2609,"Como de costume o setor de vendas está fazendo uma análise de quantos produtos temos em estoque, e você poderá ajudar eles.
+
+Então seu trabalho será exibir o nome e a quantidade de produtos de cada uma categoria.",6,21138,1,0,2,0.789,3,Intermediário,JOIN,"Agregação, JOIN, GROUP BY",0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2609
+
+CREATE TABLE categories (
+  id numeric PRIMARY KEY,
+  name varchar
+);
+
+CREATE TABLE products (
+  id numeric PRIMARY KEY,
+  name varchar(50),
+  amount numeric,
+  price numeric(7,2),
+  id_categories numeric REFERENCES categories (id)
+);
+
+INSERT INTO categories (id, name)
+VALUES 
+  (1,	'wood'),
+  (2,	'luxury'),
+  (3,	'vintage'),
+  (4,	'modern'),
+  (5,	'super luxury');
+  
+INSERT INTO products (id, name, amount, price, id_categories)
+VALUES 
+  (1,	'Two-doors wardrobe', 100,	800,	1),
+  (2,	'Dining table',	1000,	560,	3),
+  (3,	'Towel holder',	10000,	25.50,	4),
+  (4,	'Computer desk',	350,	320.50,	2),
+  (5,	'Chair',	3000,	210.64,	4),
+  (6,	'Single bed',	750,	460,	1);
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE categories,products; --","SELECT categories.name, SUM(products.amount)
+FROM products 
+INNER JOIN categories 
+ON products.id_categories = categories.id
+GROUP BY categories.name;",4.5,1.408,0,0
+2610,Valor Médio dos Produtos,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2610,"Na empresa que você trabalha está sendo feito um levantamento sobre os valores dos produtos que são comercializados.
+
+Para ajudar o setor que está fazendo esse levantamento você deve calcular e exibir o valor médio do preço dos produtos.
+
+OBS: Mostrar o valor com dois números após o ponto.",3,17812,0,0,3,0.776,1,Básico,Agregação,Agregação,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2610
+
+CREATE TABLE products (
+    id NUMERIC PRIMARY KEY,
+    name VARCHAR,
+    amount NUMERIC,
+    price NUMERIC
+);
+
+INSERT INTO products (id, name, amount, price)
+VALUES
+    (1, 'Two-doors wardrobe', 100, 800),
+    (2, 'Dining table', 1000, 560),
+    (3, 'Towel holder', 10000, 25.50),
+    (4, 'Computer desk', 350, 320.50),
+    (5, 'Chair', 3000, 210.64),
+    (6, 'Single bed', 750, 460);
+
+ /*  Execute this query to drop the tables */
+ -- DROP TABLE products; --","SELECT round(avg(price),2) from products ;",1.5,0.683,0,0
+2611,Filmes de Ação,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2611,Uma Vídeo locadora contratou seus serviços para catalogar os filmes dela. Eles precisam que você selecione o código e o nome dos filmes cuja descrição do gênero seja 'Action'.,4,18275,1,0,2,0.931,2,Intermediário,JOIN,"WHERE, JOIN",1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2611
+
+CREATE TABLE genres (
+  id numeric PRIMARY KEY,
+  description varchar(50)
+);
+
+CREATE TABLE movies (
+  id numeric PRIMARY KEY,
+  name varchar(50),
+  id_genres numeric REFERENCES genres (id)
+);
+
+INSERT INTO genres (id, description)
+VALUES
+  (1,	'Animation'),
+  (2,	'Horror'),
+  (3,	'Action'),
+  (4,	'Drama'),
+  (5,	'Comedy');
+  
+INSERT INTO movies (id, name, id_genres)
+VALUES
+  (1,	'Batman',	3),
+  (2,	'The Battle of the Dark River',	3),
+  (3,	'White Duck',	1),
+  (4,	'Breaking Barriers',	4),
+  (5,	'The Two Hours',	2);
+
+/*  Execute this query to drop the tables */
+-- DROP TABLE movies, genres; --","SELECT movies.id,movies.name FROM
+movies inner JOIN genres
+on movies.id_genres = genres.id
+WHERE genres.description = 'Action';",3.5,0.68,0,0
+2613,Filmes em Promoção,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2613,"Antigamente a locadora fez um evento em que vários filmes estavam em promoção, queremos saber que filmes eram esses.
+
+Seu trabalho para nós ajudar é selecionar o ID e o nome dos filmes cujo preço for menor que 2.00.",2,17876,1,0,3,0.85,2,Intermediário,JOIN,"WHERE, JOIN",1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2613
+
+CREATE TABLE prices (
+  id numeric PRIMARY KEY,
+  categorie varchar(50),
+  value numeric
+);
+
+
+CREATE TABLE movies (
+  id numeric PRIMARY KEY,
+  name varchar(50),
+  id_prices numeric REFERENCES prices (id)
+);
+
+INSERT INTO prices (id , categorie, value)
+VALUES
+  (1,	'Releases',	3.50),
+  (2,	'Bronze Seal',	2.00),
+  (3,	'Silver Seal',	2.50),
+  (4,	'Gold Seal',	3.00),
+  (5,	'Promotion',	1.50);
+  
+INSERT INTO movies (id, name, id_prices)
+VALUES
+  (1,	'Batman',	3),
+  (2,	'The Battle of the Dark River',	3),
+  (3,	'White Duck',	5),
+  (4,	'Breaking Barriers',	4),
+  (5,	'The Two Hours',	2);
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE movies, prices; --","SELECT movies.id, movies.name FROM
+movies inner JOIN prices
+on movies.id_prices = prices.id
+where prices.value < '2.0';",3.5,-0.292,0,0
+2614,Locações de Setembro,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2614,"A vídeo locadora está fazendo seu relatório semestral e precisa da sua ajuda. Basta você selecionar o nome dos clientes e a data de locação, das locações realizadas no mês de setembro de 2016.",5,14125,1,0,2,0.882,3,Intermediário,JOIN,"WHERE, BETWEEN, JOIN",1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2614
+
+CREATE TABLE customers (
+  id numeric PRIMARY KEY,
+  name varchar(50),
+  street varchar(50),
+  city varchar(50)
+);
+
+CREATE TABLE rentals (
+  id numeric PRIMARY KEY,
+  rentals_date date,
+  id_customers numeric REFERENCES customers (id)
+);
+
+INSERT INTO customers (id, name, street, city)
+VALUES
+  (1,	'Giovanna Goncalves Oliveira',	'Rua Mato Grosso',	'Canoas'),
+  (2,	'Kauã Azevedo Ribeiro',	'Travessa Ibiá',	'Uberlândia'),
+  (3,	'Rebeca Barbosa Santos',	'Rua Observatório Meteorológico',	'Salvador'),
+  (4,	'Sarah Carvalho Correia',	'Rua Antônio Carlos da Silva',	'Apucarana'),
+  (5,	'João Almeida Lima',	'Rua Rio Taiuva',	'Ponta Grossa'),
+  (6,	'Diogo Melo Dias',	'Rua Duzentos e Cinqüenta',	'Várzea Grande');
+  
+INSERT INTO rentals (id, rentals_date, id_customers)
+VALUES
+  (1,	'09/10/2016',	3),
+  (2,	'02/09/2016',	1),
+  (3,	'02/08/2016',	4),
+  (4,	'02/09/2015',	2),
+  (5,	'02/03/2016',	6),
+  (6,	'04/04/2016',	4);
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE rentals, customers; --","SELECT customers.name, rentals.rentals_date FROM
+customers inner JOIN rentals ON
+rentals.id_customers = customers.id
+WHERE rentals.rentals_date BETWEEN '2016-09-01' AND '2016-09-30';",4.5,0.921,0,0
+2615,Expandindo o Negocio,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2615,"A locadora tem objetivos de criar várias franquias espalhadas pelo Brasil. Para isso queremos saber em quais cidades nossos clientes moram.
+
+Para você nos ajudar selecione o nome de todas as cidades onde a locadora tem clientes. Mas por favor, não repita o nome da cidade.",1,18316,0,0,4,0.804,1,Básico,DISTINCT,DISTINCT,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2615
+
+CREATE TABLE customers (
+  id numeric PRIMARY KEY,
+  name varchar(50),
+  street varchar(50),
+  city varchar(50)
+);
+
+
+INSERT INTO customers (id, name, street, city)
+VALUES
+  (1,	'Giovanna Goncalves Oliveira',	'Rua Mato Grosso',	'Canoas'),
+  (2, 'Kauã Azevedo Ribeiro',	'Travessa Ibiá',	'Uberlândia'),
+  (3,	'Rebeca Barbosa Santos',	'Rua Observatório Meteorológico',	'Salvador'),
+  (4,	'Sarah Carvalho Correia',	'Rua Antônio Carlos da Silva',	'Uberlândia'),
+  (5,	'João Almeida Lima',	'Rua Rio Taiuva',	'Ponta Grossa'),
+  (6,	'Diogo Melo Dias',	'Rua Duzentos e Cinqüenta',	'Várzea Grande');
+  
+
+/*  Execute this query to drop the tables */
+-- DROP TABLE customers; --",SELECT DISTINCT (city) from customers;,1.5,-0.289,0,0
+2616,Nenhuma Locação,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2616,"A locadora pretende fazer uma promoção para os clientes que ainda não fizeram nenhuma locação.
+
+Seu trabalho é nos entregar o ID e o nome dos clientes que não realizaram nenhuma locação. Ordene a saída por ID.",5,13279,1,0,3,0.784,3,Intermediário,JOIN,"WHERE, JOIN, Tratamento de NULL",1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2616
+
+CREATE TABLE customers (
+  id numeric PRIMARY KEY,
+  name varchar(50),
+  street varchar(50),
+  city varchar(50)
+);
+
+
+CREATE TABLE locations (
+  id numeric PRIMARY KEY,
+  locations_date date,
+  id_customers numeric REFERENCES customers (id)
+);
+
+INSERT INTO customers (id, name, street, city)
+VALUES
+  (1,	'Giovanna Goncalves Oliveira',	'Rua Mato Grosso',	'Canoas'),
+  (2,	'Kauã Azevedo Ribeiro',	'Travessa Ibiá',	'Uberlândia'),
+  (3,	'Rebeca Barbosa Santos',	'Rua Observatório Meteorológico',	'Salvador'),
+  (4,	'Sarah Carvalho Correia',	'Rua Antônio Carlos da Silva',	'Apucarana'),
+  (5,	'João Almeida Lima',	'Rua Rio Taiuva',	'Ponta Grossa'),
+  (6,	'Diogo Melo Dias',	'Rua Duzentos e Cinqüenta',	'Várzea Grande');
+  
+
+INSERT INTO locations (id , locations_date, id_customers)
+VALUES
+  (1,	'09/10/2016',	3),
+  (2,	'02/09/2016',	1),
+  (3,	'02/08/2016',	4),
+  (4,	'02/09/2015',	2),
+  (5,	'02/03/2016',	6),
+  (6,	'04/04/2016',	4);
+  
+
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE locations, customers; --","SELECT customers.id, customers.name FROM
+customers left JOIN locations ON
+locations.id_customers = customers.id
+WHERE locations.id_customers IS NULL;",4.5,0.921,0,0
+2617,Fornecedor Ajax SA,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2617,"O setor financeiro encontrou alguns problemas na entrega de um dos nossos fornecedores, a entrega dos produtos não condiz com a nota fiscal.
+
+Seu trabalho é exibir o nome dos produtos e o nome do fornecedor, para os produtos fornecidos pelo fornecedor ‘Ajax SA’.",1,14918,1,0,2,0.773,2,Intermediário,JOIN,"WHERE, JOIN",1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2617
+
+CREATE TABLE providers (
+  id numeric PRIMARY KEY,
+  name varchar(255),
+  street varchar(255),
+  city varchar(255),
+  state char(2)
+);
+
+CREATE TABLE products (
+  id numeric PRIMARY KEY,
+  name varchar (255),
+  amount numeric,
+  price numeric,
+  id_providers numeric REFERENCES providers (id)
+);
+
+
+INSERT INTO providers (id, name, street, city, state)
+VALUES
+  (1,	'Ajax SA',	'Presidente Castelo Branco',	'Porto Alegre',	'RS'),
+  (2,	'Sansul SA',	'Av Brasil',	'Rio de Janeiro',	'RJ'),
+  (3,	'South Chairs',	'Av Moinho',	'Santa Maria', 	'RS'),
+  (4,	'Elon Electro',	'Apolo',	'São Paulo',	'SP'),
+  (5,	'Mike Electro',	'Pedro da Cunha',	'Curitiba',	'PR');
+  
+INSERT INTO products (id, name, amount, price, id_providers)
+VALUES
+  (1,	'Blue Chair',	30,	300.00,	5),
+  (2,	'Red Chair',	50,	2150.00,	1),
+  (3,	'Disney Wardrobe',	400,	829.50,	4),
+  (4,	'Blue Toaster',	20,	9.90,	3),
+  (5,	'Solar Panel',	30,	3000.25,	4);
+  
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE products, providers; --","SELECT products.name, providers.name FROM
+products inner JOIN providers on 
+products.id_providers = providers.id
+WHERE providers.name = 'Ajax SA';",3.5,-0.778,0,0
+2618,Produtos Importados,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2618,"O setor de importação da nossa empresa precisa de um relatório sobre a importação de produtos do nosso fornecedor Sansul.
+
+Sua tarefa é exibir o nome dos produtos, o nome do fornecedor e o nome da categoria, para os produtos fornecidos pelo fornecedor ‘Sansul SA’ e cujo nome da categoria seja 'Imported'.",3,13368,2,0,2,0.635,2,Intermediário,JOIN,"WHERE, JOIN",1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2618
+
+CREATE TABLE providers (
+  id numeric PRIMARY KEY,
+  name varchar(255),
+  street varchar(255),
+  city varchar(255),
+  state char(2)
+);
+
+CREATE TABLE categories (
+  id numeric PRIMARY KEY,
+  name varchar(255)
+);
+
+CREATE TABLE products (
+  id numeric PRIMARY KEY,
+  name varchar (255),
+  amount numeric,
+  price numeric,
+  id_providers numeric REFERENCES providers (id),
+  id_categories numeric REFERENCES categories (id)
+);
+
+INSERT INTO providers (id, name, street, city, state)
+VALUES
+  (1,	'Ajax SA',	'Rua Presidente Castelo Branco',	'Porto Alegre',	'RS'),
+  (2,	'Sansul SA',	'Av Brasil',	'Rio de Janeiro',	'RJ'),
+  (3,	'South Chairs',	'Rua do Moinho',	'Santa Maria',	'RS'),
+  (4,	'Elon Electro',	'Rua Apolo',	'São Paulo',	'SP'),
+  (5,	'Mike Electro',	'Rua Pedro da Cunha',	'Curitiba',	'PR');
+
+INSERT INTO categories (id, name)
+VALUES
+  (1,	'Super Luxury'),
+  (2,	'Imported'),
+  (3,	'Tech'),
+  (4,	'Vintage'),
+  (5,	'Supreme');
+  
+INSERT INTO products (id, name, amount, price, id_providers, id_categories)
+VALUES
+  (1,	'Blue Chair',	30,	300.00,	5,	5),
+  (2,	'Red Chair',	50,	2150.00,	2,	1),
+  (3,	'Disney Wardrobe',	400,	829.50,	4,	1),
+  (4,	'Blue Toaster',	20,	9.90,	3,	1),
+  (5,	'TV',	30,	3000.25,	2,	2);
+  
+  
+/*  Execute this query to drop the tables */
+-- DROP TABLE products, categories, providers; --","SELECT products.name, providers.name, categories.name FROM
+products inner JOIN providers on 
+products.id_providers = providers.id
+inner JOIN categories ON
+products.id_categories = categories.id
+WHERE providers.name = 'Sansul SA' AND
+categories.name = 'Imported';",4.5,-0.051,0,0
+2619,Super Luxo,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2619,"A nossa empresa está querendo fazer um novo contrato para o fornecimento de novos produtos superluxuosos, e para isso precisamos de alguns dados dos nossos produtos.
+
+Seu trabalho é exibir o nome dos produtos, nome dos fornecedores e o preço, para os produtos cujo preço seja maior que 1000 e sua categoria seja ‘Super Luxury.",2,13073,2,0,2,0.727,2,Intermediário,JOIN,"WHERE, JOIN",1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2619
+
+CREATE TABLE providers (
+  id numeric PRIMARY KEY,
+  name varchar(255),
+  street varchar(255),
+  city varchar(255),
+  state char(2)
+);
+
+CREATE TABLE categories (
+  id numeric PRIMARY KEY,
+  name varchar(255)
+);
+
+CREATE TABLE products (
+  id numeric PRIMARY KEY,
+  name varchar (255),
+  amount numeric,
+  price numeric,
+  id_providers numeric REFERENCES providers (id),
+  id_categories numeric REFERENCES categories (id)
+);
+
+
+INSERT INTO providers (id, name, street, city, state)
+VALUES
+  (1,	'Ajax SA',	'Rua Presidente Castelo Branco',	'Porto Alegre',	'RS'),
+  (2,	'Sansul SA',	'Av Brasil',	'Rio de Janeiro',	'RJ'),
+  (3,	'South Chairs',	'Rua do Moinho',	'Santa Maria',	'RS'),
+  (4,	'Elon Electro',	'Rua Apolo',	'São Paulo',	'SP'),
+  (5,	'Mike electro',	'Rua Pedro da Cunha',	'Curitiba',	'PR');
+  
+INSERT INTO categories (id, name)
+VALUES
+  (1,	'Super Luxury'),
+  (2,	'Imported'),
+  (3,	'Tech'),
+  (4,	'Vintage'),
+  (5,	'Supreme');
+  
+INSERT INTO products ( id, name, amount, price, id_providers, id_categories)
+VALUES
+  (1,	'Blue Chair',	30,	300.00,	5,	5),
+  (2,	'Red Chair',	50,	2150.00,	2,	1),
+  (3,	'Disney Wardrobe',	400,	829.50,	4,	1),
+  (4,	'Blue Toaster',	20,	9.90,	3,	1),
+  (5,	'TV',	30,	3000.25,	2,	2);
+  
+  
+/*  Execute this query to drop the tables */
+-- DROP TABLE products, categories, providers; --","SELECT products.name, providers.name, products.price FROM
+products inner JOIN providers on 
+products.id_providers = providers.id
+inner JOIN categories ON
+products.id_categories = categories.id
+WHERE products.price > '1000' AND
+categories.name = 'Super Luxury';",4.5,-0.537,0,0
+2620,Pedidos no Primeiro Semestre,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2620,A auditoria financeira da empresa está pedindo para nós um relatório do primeiro semestre de 2016. Então exiba o nome dos clientes e o número do pedido para os clientes que fizeram pedidos no primeiro semestre de 2016.,3,11817,1,0,2,0.789,3,Intermediário,JOIN,"WHERE, BETWEEN, JOIN",1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2620
+
+CREATE TABLE customers (
+  id numeric PRIMARY KEY,
+  name varchar(255),
+  street varchar(255),
+  city varchar(255),
+  state char(2),
+  credit_limit numeric
+);
+
+CREATE TABLE orders (
+  id numeric PRIMARY KEY,
+  orders_date date,
+  id_customers numeric REFERENCES customers (id)
+);
+
+
+INSERT INTO customers (id, name, street, city, state, credit_limit)
+VALUES
+  (1,	'Nicolas Diogo Cardoso',	'Acesso Um',	'Porto Alegre',	'RS',	475),
+  (2,	'Cecília Olivia Rodrigues',	'Rua Sizuka Usuy',	'Cianorte',	'PR',	3170),
+  (3,	'Augusto Fernando Carlos Eduardo Cardoso',	'Rua Baldomiro Koerich',	'Palhoça',	'SC',	1067),
+  (4,	'Pedro Cardoso',	'Acesso Um',	'Porto Alegre',	'RS',	475),
+  (5,	'Sabrina Heloisa Gabriela Barros',	'Rua Engenheiro Tito Marques Fernandes',	'Porto Alegre',	'RS',	4312),
+  (6,	'Joaquim Diego Lorenzo Araújo',	'Rua Vitorino',	'Novo Hamburgo',	'RS',	2314);
+
+INSERT INTO orders (id, orders_date, id_customers)
+VALUES
+  (1,	'13/05/2016',	3),
+  (2,	'12/01/2016',	2),
+  (3,	'18/04/2016',	5),
+  (4,	'07/09/2016',	4),
+  (5,	'13/02/2016',	6),
+  (6,	'05/08/2016',	3);
+
+
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE orders, customers; --","SELECT customers.name, orders.id 
+FROM customers 
+INNER JOIN orders ON orders.id_customers = customers.id
+WHERE orders.orders_date BETWEEN '2016-01-01' AND '2016-06-30';",4.5,-0.051,0,0
+2621,Quantidades Entre 10 e 20,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2621,"A diretoria da empresa pediu para você um relatório simples de quantas cidades a empresa já alcançou.
+
+Para fazer isso você deve exibir a quantidade de cidades distintas da tabela clientes.",3,12272,1,0,2,0.742,4,Intermediário,JOIN,"WHERE, LIKE, BETWEEN, JOIN",1,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2621
+
+CREATE TABLE providers (
+  id numeric PRIMARY KEY,
+  name varchar(255),
+  street varchar(255),
+  city varchar(255),
+  state char(2)
+);
+
+CREATE TABLE products (
+  id numeric PRIMARY KEY,
+  name varchar (255),
+  amount numeric,
+  price numeric,
+  id_providers numeric REFERENCES providers (id)
+);
+
+
+INSERT INTO providers (id, name, street, city, state)
+VALUES
+  (1,	'Ajax SA',	'Rua Presidente Castelo Branco',	'Porto Alegre',	'RS'),
+  (2,	'Sansul SA',	'Av Brasil',	'Rio de Janeiro',	'RJ'),
+  (3,	'Pr Sheppard Chairs',	'Rua do Moinho',	'Santa Maria',	'RS'),
+  (4,	'Elon Electro',	'Rua Apolo',	'São Paulo',	'SP'),
+  (5,	'Mike Electro',	'Rua Pedro da Cunha',	'Curitiba',	'PR');
+  
+INSERT INTO products (id, name, amount, price, id_providers)
+VALUES
+  (1,	'Blue Chair',	30,	300.00,	5),
+  (2,	'Red Chair',	50,	2150.00,	2),
+  (3,	'Disney Wardrobe',	400,	829.50,	4),
+  (4,	'Executive Chair',	17,	9.90,	3),
+  (5,	'Solar Panel',	30,	3000.25,	4);
+  
+  
+/*  Execute this query to drop the tables */
+-- DROP TABLE products, providers; --","SELECT products.name FROM products
+inner JOIN providers ON
+products.id_providers = providers.id
+WHERE providers.name LIKE 'P%' AND
+products.amount BETWEEN 10 and 20",5.5,-0.295,0,0
+2622,Pessoas Jurídicas,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2622,O setor de vendas quer fazer uma promoção para todos os clientes que são pessoas jurídicas. Para isso você deve exibir o nome dos clientes que sejam pessoa jurídica.,1,13798,1,0,2,0.862,1,Básico,JOIN,JOIN,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2622
+
+CREATE TABLE customers (
+  id numeric PRIMARY KEY,
+  name varchar(255),
+  street varchar(255),
+  city varchar(255),
+  state char(2),
+  credit_limit numeric
+);
+
+CREATE TABLE legal_person (
+  id_customers numeric REFERENCES customers (id),
+  cnpj char (18),
+  contact varchar(255)
+);
+
+INSERT INTO customers (id, name, street, city, state, credit_limit)
+VALUES
+  (1,	'Nicolas Diogo Cardoso',	'Acesso Um',	'Porto Alegre',	'RS',	475),
+  (2,	'Cecília Olivia Rodrigues',	'Rua Sizuka Usuy',	'Cianorte',	'PR',	3170),
+  (3,	'Augusto Fernando Carlos Eduardo Cardoso',	'Rua Baldomiro Koerich',	'Palhoça',	'SC',	1067),
+  (4,	'Nicolas Diogo Cardoso',	'Acesso Um',	'Porto Alegre',	'RS',	475),
+  (5,	'Sabrina Heloisa Gabriela Barros',	'Rua Engenheiro Tito Marques Fernandes',	'Porto Alegre',	'RS',	4312),
+  (6,	'Joaquim Diego Lorenzo Araújo',	'Rua Vitorino',	'Novo Hamburgo',	'RS',	2314);
+  
+INSERT INTO legal_person (id_customers, cnpj, contact)
+VALUES
+  (4,	'85883842000191',	'99767-0562'),
+  (5,	'47773848000117',	'99100-8965');
+  
+
+/*  Execute this query to drop the tables */
+-- DROP TABLE legal_person, customers; --","SELECT customers.name FROM
+customers inner JOIN legal_person ON
+legal_person.id_customers = customers.id",2.5,-0.533,0,0
+2623,Categorias com Vários Produtos,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2623,"O setor de vendas precisa de um relatório para saber quais produtos estão sobrando em estoque.
+
+Para você ajudar o setor de vendas, exiba o nome do produto e o nome da categoria, para os produtos cuja quantidade seja maior que 100 e o código da categoria seja 1,2,3,6 ou 9. Mostre essas informações em ordem crescente pelo código da categoria.",4,10465,1,0,3,0.688,3,Intermediário,JOIN,"WHERE, IN, JOIN",1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2623
+
+CREATE TABLE categories (
+  id numeric PRIMARY KEY,
+  name varchar(255)
+);
+
+CREATE TABLE products (
+  id numeric PRIMARY KEY,
+  name varchar (255),
+  amount numeric,
+  price numeric,
+  id_categories numeric REFERENCES categories (id)
+);
+
+
+INSERT INTO categories (id, name)
+VALUES
+  (1,	'Superior'),
+  (2,	'Super Luxury'),
+  (3,	'Modern'),
+  (4,	'Nerd'),
+  (5,	'Infantile'),
+  (6,	'Robust'),
+  (9,	'Wood');
+
+INSERT INTO products (id, name, amount, price, id_categories)
+VALUES
+  (1,	'Blue Chair',	30, 300.00,	9),
+  (2,	'Red Chair',	200,	2150.00, 2),
+  (3,	'Disney Wardrobe',	400,	829.50,	4),
+  (4,	'Blue Toaster',	20,	9.90,	3),
+  (5,	'Solar Panel',	30,	3000.25,	4);
+
+
+/*  Execute this query to drop the tables */
+-- DROP TABLE products, categories; --","SELECT products.name, categories.name FROM products
+inner JOIN categories ON
+products.id_categories = categories.id
+WHERE products.amount > 100
+AND products.id_categories in (1,2,3,6,9);",4.5,0.435,0,0
+2624,Quantidades de Cidades por Clientes,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2624,"A diretoria da empresa pediu para você um relatório simples de quantas cidades a empresa já alcançou.
+
+Para fazer isso você deve exibir a quantidade de cidades distintas da tabela clientes.",3,11835,0,0,2,0.742,2,Intermediário,Agregação,"DISTINCT, Agregação",0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2624
+
+CREATE TABLE customers (
+  id numeric PRIMARY KEY,
+  name varchar(255),
+  street varchar(255),
+  city varchar(255),
+  state char(2),
+  credit_limit numeric
+);
+
+
+INSERT INTO customers (id, name, street, city, state, credit_limit)
+VALUES
+  (1,	'Nicolas Diogo Cardoso',	'Acesso Um',	'Porto Alegre',	'RS',	475),
+  (2,	'Cecília Olivia Rodrigues', 'Rua Sizuka Usuy',	'Cianorte',	'PR',	3170),
+  (3,	'Augusto Fernando Carlos Eduardo Cardoso',	'Rua Baldomiro Koerich', 'Palhoça',	'SC',	1067),
+  (4,	'Nicolas Diogo Cardoso',	'Acesso Um',	'Porto Alegre',	'RS',	475),
+  (5,	'Sabrina Heloisa Gabriela Barros',	'Rua Engenheiro Tito Marques Fernandes',	'Porto Alegre',	'RS',	4312),
+  (6,	'Joaquim Diego Lorenzo Araújo',	'Rua Vitorino',	'Novo Hamburgo',	'RS',	2314);
+  
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE customers; --","SELECT COUNT(DISTINCT city)
+FROM customers;",2.5,0.439,0,0
+2625,Máscara de CPF,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2625,"Os diretores do setor de comunicação da sua empresa querem um relatório sobre os dados dos clientes físicos que estão cadastrados no banco de dados. Porem o antigo relatório teve um problema. Os dados do CPF dos clientes vieram sem a máscara.
+
+Por isso seu trabalho agora é selecionar todos os CPFs de todos os clientes, e aplicar uma máscara sobre o retorno dos dados.
+
+A máscara do CPF é parecida com: '000.000.000-00'.",4,7645,1,0,7,0.645,1,Básico,Função de string,Função de string,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2625
+
+CREATE TABLE customers (
+  id numeric PRIMARY KEY,
+  name varchar(255),
+  street varchar(255),
+  city varchar(255),
+  state char(2),
+  credit_limit numeric
+);
+
+CREATE TABLE natural_person (
+  id_customers numeric REFERENCES customers (id),
+  cpf char (14)
+);
+
+
+INSERT INTO customers (id, name, street, city, state, credit_limit)
+VALUES
+  (1,	'Nicolas Diogo Cardoso',	'Acesso Um',	'Porto Alegre',	'RS',	475),
+  (2,	'Cecília Olivia Rodrigues',	'Rua Sizuka Usuy',	'Cianorte',	'PR',	3170),
+  (3,	'Augusto Fernando Carlos Eduardo Cardoso',	'Rua Baldomiro Koerich',	'Palhoça',	'SC',	1067),
+  (4,	'Nicolas Diogo Cardoso',	'Acesso Um',	'Porto Alegre',	'RS',	475),
+  (5,	'Sabrina Heloisa Gabriela Barros',	'Rua Engenheiro Tito Marques Fernandes', 'Porto Alegre',	'RS',	4312),
+  (6,	'Joaquim Diego Lorenzo Araújo',	'Rua Vitorino',	'Novo Hamburgo',	'RS',	2314);
+  
+INSERT INTO natural_person (id_customers, cpf)
+VALUES
+  (1,	'26774287840'),
+  (2,	'97918477200');
+  
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE natural_person, customers; --","select
+    format(
+        '%s.%s.%s-%s',
+        substring(cpf, 1, 3),
+        substring(cpf, 4, 3),
+        substring(cpf, 7, 3),
+        substring(cpf, 10, 2)
+    ) as cpf
+from
+    natural_person;",2.5,0.925,0,0
+2737,Advogados,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2737,"O diretor da Mangojata Advogados ordenou que lhe fosse entregue um relatório sobre seus advogados atuais.
+
+O diretor quer que você mostre para ele o nome do advogado que têm mais clientes, o nome do advogado que tem menos clientes e a média de clientes entre todos os advogados.
+
+OBS: Antes de apresentar a média mostre um campo chamado Average a fim de deixar o relatório mais apresentável. A média deverá ser apresentada em inteiros.",6,8751,0,0,4,0.653,5,Avançado,Subconsulta,"WHERE, Agregação, Subconsulta, UNION, CAST",1,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2737
+
+CREATE TABLE lawyers(
+  register INTEGER PRIMARY KEY,
+  name VARCHAR(255),
+  customers_number INTEGER
+ );
+  
+  
+ INSERT INTO lawyers(register, name, customers_number)
+ VALUES (1648, 'Marty M. Harrison', 5),
+	(2427, 'Jonathan J. Blevins', 15),
+	(3365, 'Chelsey D. Sanders', 20),
+	(4153, 'Dorothy W. Ford', 16),
+	(5525, 'Penny J. Cormier', 6);
+
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE lawyers; --","SELECT lawyers.name,lawyers.customers_number from lawyers
+WHERE customers_number = 
+(SELECT MAX(customers_number) from lawyers)
+UNION all SELECT lawyers.name,lawyers.customers_number from lawyers
+where customers_number = 
+(SELECT MIN(customers_number) from lawyers)
+UNION all 
+SELECT 'Average' as name, cast (avg(customers_number)as int) as customers_number From lawyers",5.5,1.163,0,0
+2738,Concurso,Paulo R. Rodegheri,https://judge.beecrowd.com/pt/problems/view/2738,"A Universidade Tecnológica de Marte está com seu concurso aberto para Pesquisadores. Porém o computador que processava os dados dos candidatos estragou. Você deve mostrar a lista dos candidatos, contendo o nome do candidato e a sua pontuação final (com duas casas decimais após a vírgula). Lembre-se de mostrar a lista ordenada pela pontuação do candidato (maior pontuação no topo da lista). A
+v
+g
+=
+(
+m
+a
+t
+h
+∗
+2
+)
++
+(
+s
+p
+e
+c
+i
+f
+i
+c
+∗
+3
+)
++
+(
+p
+r
+o
+j
+e
+c
+t
+_
+p
+l
+a
+n
+∗
+5
+)
+10",4,7338,1,0,4,0.702,2,Intermediário,JOIN,"ORDER BY, JOIN",0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2738
+
+create table candidate(
+  id INTEGER PRIMARY KEY,
+  name VARCHAR (255)
+);
+
+create table score(
+  candidate_id INTEGER REFERENCES candidate (id),
+  math NUMERIC,
+  specific NUMERIC,
+  project_plan NUMERIC
+);
+
+
+INSERT INTO candidate(id, name)
+VALUES 
+	   (1, 'Michael P Cannon'),
+       (2, 'Barbra J Cable'),
+       (3, 'Ronald D Jones'),
+       (4, 'Timothy K Fitzsimmons'),
+       (5, 'Ivory B Morrison'),
+       (6, 'Sheila R Denis'),
+       (7, 'Edward C Durgan'),
+       (8, 'William K Spencer'),
+       (9, 'Donna D Pursley'),
+       (10, 'Ann C Davis');
+
+INSERT INTO score(candidate_id, math, specific, project_plan)
+VALUES 
+	   (1, 76, 58, 21),
+       (2, 4, 5, 22),
+       (3, 15, 59, 12),
+       (4, 41, 42, 99),
+       (5, 22, 90, 9),
+       (6, 82, 77, 15),
+       (7, 82, 99, 56),
+       (8, 11, 4, 22),
+       (9, 16, 29, 94),
+       (10, 1, 7, 59);
+
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE score, candidate; --","SELECT candidate.name, 	  
+ROUND((((score.math * 2) + (score.specific * 3) + (score.project_plan * 5)) / 10),2) as AVG 
+from candidate 
+inner JOIN score  ON
+candidate.id = score.candidate_id
+ORDER by AVG DESC",3.5,0.68,0,0
+2739,Dia de Pagamento,Marcos Lima,https://judge.beecrowd.com/pt/problems/view/2739,"O Banco Central de Financiamentos perdeu vários registros após uma falha no servidor que ocorreu no mês de Outubro. As datas de cobrança das parcelas foram perdidas. Porém uma cópia de segurança foi encontrada contendo as informações sobre as datas de pagamento das parcelas dos clientes.
+
+Por tanto, o Banco pede a sua ajuda para selecionar os nomes e o dia do mês que cada cliente deve pagar sua parcela.
+
+OBS: Obrigatoriamente o dia do mês precisa ser um inteiro.",6,5970,0,0,5,0.738,2,Intermediário,Função de data,"Função de data, CAST",0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2739
+
+CREATE TABLE loan(
+  id INTEGER PRIMARY KEY,
+  name VARCHAR(255),
+  value NUMERIC,
+  payday TIMESTAMP
+ );
+
+INSERT INTO loan(id, name, value, payday)
+VALUES (1, 'Cristian Ghyprievy', 3000.50, '2017-10-19'),
+       (2, 'John Serial', 10000, '2017-10-10'),
+       (3, 'Michael Seven', 5000.40, '2017-10-17'),
+       (4, 'Joana Cabel', 2000, '2017-10-05'),
+       (5, 'Miguel Santos', 4050, '2017-10-20');
+
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE loan; --","select
+    name,
+    cast(extract(day from payday) as int) as day
+from loan",2.5,1.897,0,0
+2740,Liga,Marcos Lima,https://judge.beecrowd.com/pt/problems/view/2740,"A Liga Internacional de Escavação Subterrânea já é um sucesso entre os esportes alternativos, porém todos que trabalham na organização do evento trabalham com escavação e não computação. Então você foi contratado para solucionar o problema da Liga.
+
+Selecione os três primeiros colocados da lista com a frase inicial Podium: e também, os dois últimos times que serão rebaixados para série B com a frase inicial Demoted:",5,5447,0,0,2,0.776,4,Intermediário,Subconsulta,"ORDER BY, Subconsulta, UNION, Função de string",0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,1,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2740
+
+CREATE TABLE league(
+  position INTEGER,
+  team CHARACTER VARYING (255)
+);
+
+
+INSERT INTO league(position, team)
+VALUES (1, 'The Quack Bats'),
+       (2, 'The Responsible Hornets'),
+       (3, 'The Bawdy Dolphins'),
+       (4, 'The Abstracted Sharks'),
+       (5, 'The Nervous Zebras'),
+       (6, 'The Oafish Owls'),
+       (7, 'The Unequaled Bison'),
+       (8, 'The Keen Kangaroos'),
+       (9, 'The Left Nightingales'),
+       (10, 'The Terrific Elks'),
+       (11, 'The Lumpy Frogs'),
+       (12, 'The Swift Buffalo'),
+       (13, 'The Big Chargers'),
+       (14, 'The Rough Robins'),
+       (15, 'The Silver Crocs');
+
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE league; --","(SELECT 'Podium: ' || team AS team
+ FROM league
+ ORDER BY position ASC
+ LIMIT 3)
+UNION ALL
+(SELECT 'Demoted: ' || team AS team
+ FROM league
+ ORDER BY position DESC
+ LIMIT 2);",4.5,0.921,0,0
+2741,Notas dos Alunos,Marcos Lima,https://judge.beecrowd.com/pt/problems/view/2741,"O semestre acabou na Universidade do Sul da Transilvânia. Todos os cursos tiveram suas notas fechadas, apenas a disciplina de Alquimia 104 não teve a lista de alunos aprovados.
+
+Portanto, você deverá mostrar a frase 'Approved: ' junto com o nome do aluno e a sua nota, para os alunos que foram aprovados (grade ≥7).
+
+Lembre-se de ordenar a lista pela maior nota.",5,6409,0,0,4,0.794,3,Intermediário,Função de string,"WHERE, ORDER BY, Função de string",1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2741
+
+CREATE TABLE students(
+  id INTEGER PRIMARY KEY,
+  name VARCHAR(255),
+  grade NUMERIC
+);
+
+
+INSERT INTO students(id, name, grade)
+VALUES (1, 'Terry B. Padilla',7.3),
+       (2, 'William S. Ray',0.6),
+       (3, 'Barbara A. Gongora',5.2),
+       (4, 'Julie B. Manzer', 6.7),
+       (5, 'Teresa J. Axtell', 4.6),
+       (6, 'Ben M. Dantzler', 9.6);
+
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE students; --","SELECT 'Approved: ' || students.name as name , students.grade from students
+where students.grade >= 7
+order by grade DESC;",3.5,1.166,0,0
+2742,O Multiverso de Richard,Marcos Lima,https://judge.beecrowd.com/pt/problems/view/2742,"Richard é um cientista muito famoso por suas teorias do multiverso, onde ele descreve que todo o conjunto hipotético de universos paralelos podem ser representados por meio de tabelas em um banco de dados. E graças a essa teoria você tem um emprego.
+
+A sua primeira tarefa é selecionar todos os possíveis Richards das dimensões C875 e C774, junto a sua probabilidade de existência (o fator N) com a precisão de 3 casas decimais.
+
+Lembre-se que (o fator N) é calculado multiplicando o valor omega por 1,618. Os dados devem ser ordenados pelo menor valor do campo omega.",5,5301,1,0,5,0.73,3,Intermediário,JOIN,"WHERE, JOIN, Função de string",1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2742
+
+CREATE TABLE dimensions(
+	id INTEGER PRIMARY KEY,
+	name varchar(255)
+);
+
+CREATE TABLE life_registry(
+	id INTEGER PRIMARY KEY,
+	name VARCHAR(255),
+	omega NUMERIC,
+	dimensions_id INTEGER REFERENCES dimensions (id)
+);
+
+
+INSERT INTO dimensions(id, name)
+VALUES 
+      (1, 'C774'),
+      (2, 'C784'),
+      (3, 'C794'),
+      (4, 'C824'),
+      (5, 'C875');
+      
+INSERT INTO life_registry(id, name, omega, dimensions_id)
+VALUES
+	  (1, 'Richard Postman', 5.6, 2),	
+	  (2, 'Simple Jelly', 1.4, 1),	
+	  (3, 'Richard Gran Master', 2.5, 1),	
+	  (4, 'Richard Turing', 6.4, 4),	
+	  (5, 'Richard Strall',	1.0, 3);
+
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE life_registry, dimensions; --","SELECT t1.name, ROUND((t1.omega*1.618),3) AS ""Fator N""
+FROM life_registry AS t1
+INNER JOIN dimensions AS t2
+ON t1.dimensions_id = t2.id
+WHERE LEFT(t1.name,7) = 'Richard'
+      AND (t2.name = 'C875'
+	  OR t2.name = 'C774');",4.5,0.921,0,0
+2743,Quantidade de Caracteres,Marcos Lima,https://judge.beecrowd.com/pt/problems/view/2743,"A Organização Mundial de Caracteres em Nomes de Pessoas (OMCNP) está fazendo um censo para saber qual é a quantidade de caracteres que as pessoas têm em seus nomes.
+
+Para ajudar a OMCNP, você deve mostrar a quantidade de caracteres de cada nome em ordem decrescente pela quantidade de caracteres.",3,6386,0,0,2,0.62,2,Intermediário,Função de string,"ORDER BY, Função de string",0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2743
+
+CREATE TABLE people(
+	id INTEGER PRIMARY KEY,
+	name varchar(255)
+);
+
+
+INSERT INTO people(id, name)
+VALUES 
+      (1, 'Karen'),
+      (2, 'Manuel'),
+      (3, 'Ygor'),
+      (4, 'Valentine'),
+      (5, 'Jo');
+
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE people; --","select
+    people.name,
+    length(people.name)
+from people
+order by length(people.name) desc;",2.5,0.439,0,0
+2744,Senhas,Marcos Lima,https://judge.beecrowd.com/pt/problems/view/2744,"Você foi contratado para dar consultoria a uma empresa. Analisando o banco de dados você notou que as senhas gravadas dos usuários estão em formato de texto, sendo que isso pode gerar uma falha de segurança, uma vez que elas não estão criptografadas.
+
+Por tanto você deve selecionar o id, a senha atual e a senha transformada em MD5 de cada usuário na tabela account.",1,7175,0,0,3,0.769,1,Básico,Função de string,Função de string,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2744
+
+CREATE TABLE account(
+  id INTEGER PRIMARY KEY,
+  name VARCHAR(255),
+  login VARCHAR(255),
+  password VARCHAR(255)
+  );
+  
+  
+INSERT INTO account(id, name, login, password)
+VALUES (1, 'Joyce P. Parry', 'Promeraw', 'noh1Oozei'),
+       (2, 'Michael T. Gonzalez', 'Phers1942', 'Iath3see9bi'),
+       (3, 'Heather W. Lawless', 'Hankicht', 'diShono4'),
+       (4, 'Otis C. Hitt', 'Conalothe', 'zooFohH7w'),
+       (5, 'Roger N. Brownfield', 'Worseente', 'fah7ohNg');
+
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE account; --","select
+    id,
+    password,
+    MD5(password)
+from account;",1.5,-0.289,0,0
+2745,Taxas,Marcos Lima,https://judge.beecrowd.com/pt/problems/view/2745,"Você está indo para uma reunião no plano Internacional de Taxas Pessoais, sua proposta é: toda pessoa com renda acima de 3000 deve pagar uma taxa para o governo, essa taxa é 10% do que ela ganha.
+
+Portanto, mostre o nome da pessoa e o valor que ela deve pagar para o governo com a precisão de duas casas decimais.",3,6341,0,0,2,0.717,1,Básico,WHERE,WHERE,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2745
+
+CREATE TABLE people (
+  id INTEGER PRIMARY KEY,
+  name CHARACTER VARYING (255),
+  salary NUMERIC
+);
+
+
+INSERT INTO people(id, name, salary)
+VALUES 
+      (1, 'James M. Tabarez', 883),
+      (2, 'Rafael T. Hendon', 4281),
+      (3, 'Linda J. Gardner', 4437),
+      (4, 'Nicholas J. Conn', 8011),
+      (5, 'Karol A. Morales', 2508),
+      (6, 'Lolita S. Graves', 8709);
+
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE people; --","SELECT people.name, ROUND ((people.salary * 0.1),2) AS ""tax""
+FROM people 
+where people.salary > 3000",1.5,0.683,0,0
+2746,Virus,Marcos Lima,https://judge.beecrowd.com/pt/problems/view/2746,"Os vírus estão evoluindo, porém uma nova pesquisa tem provado que trocando algumas proteínas a vacina se torna imbatível. A proteína H1 (Hemaglutinina) quando é substituída pela proteína X (Xenomorphina) tem efeitos interessantes no combate de quase todas as doenças virais. Alguns conspiracionistas dizem que após a descoberta dessa vacina algumas criaturas de 3 metros de altura foram vistas perto do laboratório, mas claro, isso é mentira.
+
+Portanto você deve substituir todo caractere 'H1' ( Hemaglutinina ) por 'X' ( Xenomorphina ).",1,6900,0,0,4,0.821,1,Básico,Função de string,Função de string,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2746
+
+CREATE TABLE virus (
+  id INTEGER,
+  name VARCHAR(255)
+);
+
+
+INSERT INTO virus(id, name)
+VALUES 
+      (1, 'H1RT'),
+      (2, 'H7H1'),
+      (3, 'HUN8'),
+      (4, 'XH1HX'),
+      (5, 'XXXX');
+
+  
+  /*  Execute this query to drop the tables */
+  -- DROP TABLE virus; --","select replace(virus.name, 'H1', 'X') as name from virus;",1.5,-0.289,0,0
+2988,Campeonato Cearense,Gustavo Moraes,https://judge.beecrowd.com/pt/problems/view/2988,"O Campeonato Cearense de Futebol atrai milhares de torcedores todos os anos, você trabalha em um jornal e está encarregado de calcular a tabela de pontuação dos times. Mostre uma tabela com as seguintes colunas: o nome do time, número de partidas, vitórias, derrotas, empates e pontuação. Sabendo que a pontuação é calculada com cada vitória valendo 3 pontos, empate vale 1 e derrota rende 0. No final mostre sua tabela com a pontuação ordenada do maior para o menor.",4,2828,4,1,4,0.762,10,Avançado,Subconsulta correlacionada,"WHERE, ORDER BY, Agregação, JOIN, GROUP BY, Subconsulta, Subcons. correl., CASE, Tratamento de NULL, PIVOT",1,1,0,0,0,0,1,1,1,0,1,1,0,1,0,1,0,0,0,1,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2988
+
+CREATE TABLE teams (
+    id integer PRIMARY KEY,
+    name varchar(50)
+);
+
+GRANT SELECT ON teams TO sql_user;
+
+CREATE TABLE matches  (
+    id integer PRIMARY KEY,
+    team_1 integer,
+    team_2 integer,
+    team_1_goals integer,
+    team_2_goals integer,
+    FOREIGN KEY (team_1) REFERENCES teams(id),
+    FOREIGN KEY (team_2) REFERENCES teams(id)
+);
+
+GRANT SELECT ON matches TO sql_user;insert into teams
+    (id, name)
+values
+    (1,'CEARA'),
+    (2,'FORTALEZA'),
+    (3,'GUARANY DE SOBRAL'),
+    (4,'FLORESTA');
+
+insert into  matches
+    (id, team_1, team_2, team_1_goals, team_2_goals)
+values
+    (1,4,1,0,4),
+    (2,3,2,0,1),
+    (3,1,3,3,0),
+    (4,3,4,0,1),
+    (5,1,2,0,0),
+    (6,2,4,2,1);
+
+/* Execute this query to drop the table */
+DROP TABLE matches;","with resultados as (
+    select
+        team_1,
+        team_2,
+        case
+            when (team_1_goals > team_2_goals) then team_1
+            when (team_2_goals > team_1_goals) then team_2
+        end as winning_team,
+        case
+            when (team_1_goals < team_2_goals) then team_1
+            when (team_2_goals < team_1_goals) then team_2
+        end as losing_team
+    from
+        matches
+)
+
+select
+    teams.name,
+    COUNT(*) as matches,
+    COUNT(*) filter (where teams.id = resultados.winning_team) as victories,
+    COUNT(*) filter (where teams.id = resultados.losing_team) as defeats,
+    COUNT(*) filter (
+        where resultados.winning_team is NULL and resultados.losing_team is NULL
+    ) as draws,
+    (
+        3 * (COUNT(*) filter (where teams.id = resultados.winning_team))
+        + (
+            COUNT(*) filter (
+                where resultados.winning_team is NULL
+                and resultados.losing_team is NULL
+            )
+        )
+    ) as score
+from
+    teams
+inner join
+    resultados
+    on
+        teams.id = resultados.team_1 or teams.id = resultados.team_2
+group by
+    teams.id
+order by
+    score desc, name asc;",15.0,-2.134,1,2
+2989,Departamentos e Divisões,Angelo Brayner,https://judge.beecrowd.com/pt/problems/view/2989,"Para cada departamento, mostrar o nome do departamento, o nome de suas divisões, com a respectiva média salarial e maior salário de cada divisão. O resultado deve estar em ordem decrescente usando a média salarial.
+
+Dica: Você pode utilizar a função COALESCE(check_expression , 0) para substituir algum valor null por zero; Além disso, você também pode utilizar a função ROUND(value, 2) para exibir os valores com 2 casas decimais.",7,1371,0,1,3,0.729,7,Avançado,Recursão,"ORDER BY, Agregação, JOIN, GROUP BY, Subconsulta, Tratamento de NULL, Recursão",0,1,0,0,0,0,1,1,1,0,1,0,0,0,0,1,0,1,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2989
+
+CREATE TABLE departamento(
+    cod_dep int,
+    nome varchar(50),
+    endereco varchar(50)
+);
+
+GRANT SELECT ON departamento TO sql_user;
+-- ------------------------------------------------------------
+CREATE TABLE dependente
+(matr int, nome varchar(50), endereco varchar(50));
+
+GRANT SELECT ON dependente TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE desconto
+(cod_desc int, nome varchar(50), tipo varchar(10), valor numeric);
+
+GRANT SELECT ON desconto TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE divisao
+(cod_divisao int, nome varchar(50), endereco varchar(50), cod_dep int);
+
+GRANT SELECT ON divisao TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE emp_desc
+(cod_desc int, matr int);
+
+GRANT SELECT ON emp_desc TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE emp_venc
+(cod_venc int, matr int);
+
+GRANT SELECT ON emp_venc TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE empregado
+(matr int, nome varchar(50), endereco varchar(50), data_lotacao timestamp, lotacao int,
+gerencia_cod_dep int, lotacao_div int, gerencia_div int);
+
+GRANT SELECT ON empregado TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE vencimento
+(cod_venc int, nome varchar(50), tipo varchar(10), valor numeric);
+
+GRANT SELECT ON vencimento TO sql_user;
+
+INSERT INTO departamento
+(""cod_dep"", ""nome"", ""endereco"")
+VALUES
+(1, 'Contabilidade', 'R. X'),
+(2, 'TI', 'R. Y'),
+(3, 'Engenharia', 'R. Y');
+
+INSERT INTO dependente
+(matr, nome, endereco)
+VALUES
+(9999, 'Francisco Jose', 'R. Z'),
+(88, 'Maria da Silva', 'R. T'),
+(55, 'Virgulino da Silva', 'R. 31');
+
+INSERT INTO desconto
+(cod_desc, nome, tipo, valor)
+VALUES
+(91, 'IR', 'V', 400.00),
+(92, 'Plano de saude', 'v', 300.00),
+(93, NULL, NULL, NULL);
+
+INSERT INTO divisao
+(cod_divisao, nome, endereco, cod_dep)
+VALUES
+(11, 'Ativo', 'R. X', 1),
+(12, 'Passivo', 'R. X', 1),
+(21, 'Desenvoilvimento de Projetos', 'R. Y', 2),
+(22, 'Analise de Sistemas', 'R. Y', 2),
+(23, 'Programacao', 'R. W', 2),
+(31, 'Concreto', 'R Y', 3),
+(32, 'Calculo Estrutural', 'R. Y', 3);
+
+INSERT INTO emp_desc
+(cod_desc, matr)
+VALUES
+(91, 3),
+(91, 27),
+(91, 9999),
+(92, 27),
+(92, 71),
+(92, 88),
+(92, 9999);
+
+INSERT INTO emp_venc
+(cod_venc, matr)
+VALUES
+(1, 27),
+(1, 88),
+(1, 135),
+(1, 254),
+(1, 431),
+(2, 1),
+(2, 5),
+(2, 7),
+(2, 13),
+(2, 33),
+(2, 9999),
+(3, 3),
+(3, 55),
+(3, 71),
+(3, 222),
+(4, 25),
+(4, 476),
+(5, 371),
+(6, 3),
+(6, 27),
+(6, 9999),
+(7, 5),
+(7, 33),
+(7, 55),
+(7, 71),
+(7, 88),
+(7, 254),
+(7, 476),
+(8, 25),
+(8, 91),
+(9, 1),
+(9, 27),
+(9, 91),
+(9, 135),
+(9, 371),
+(9, 9999),
+(10, 371),
+(10, 9999),
+(11, 91),
+(12, 3),
+(12, 27),
+(12, 254),
+(12, 9999),
+(13, 3),
+(13, 5),
+(13, 7),
+(13, 25),
+(13, 33),
+(13, 88),
+(13, 135);
+
+INSERT INTO empregado
+(matr, nome, endereco, data_lotacao, lotacao, gerencia_cod_dep, lotacao_div, gerencia_div)
+VALUES
+(9999, 'Jose Sampaio', 'R Z', '2006-06-06 00:00:00', 1, 1, 12, NULL),
+(33, 'Jose Maria', 'R 21', '2006-03-01 00:00:00', 1, NULL, 11, 11),
+(1, 'Maria Jose', 'R. 52', '2003-03-01 00:00:00', 1, NULL, 11, NULL),
+(7, 'Yasmim', 'R. 13', '210-07-02 00:00:00', 1, NULL, 11, NULL),
+(5, 'Rebeca', 'R. 1', '2011-04-01 00:00:00', 1, NULL, 12, 12),
+(13, 'Sofia', 'R. 28', '2010-09-09 00:00:00', 1, NULL, 12, NULL),
+(27, 'Andre', 'R. Z', '2005-05-01 00:00:00', 2, 2, 22, NULL),
+(88, 'Yami', 'R. T', '2014-02-01 00:00:00', 2, NULL, 21, 21),
+(431, 'Joao da Silva', 'R. Y', '2011-07-03 00:00:00', 2, NULL, 21, NULL),
+(135, 'Ricardo Reis', 'R. 33', '2009-08-01 00:00:00', 2, NULL, 21, NULL),
+(254, 'Barbara', 'R. Z', '2008-01-03 00:00:00', 2, NULL, 22, 22),
+(371, 'Ines', 'R. Y', '2005-01-01 00:00:00', 2, NULL, 22, NULL),
+(476, 'Flor', 'r. Z', '2015-10-28 00:00:00', 2, NULL, 23, 23),
+(25, 'Lina', 'R. 67', '2014-09-01 00:00:00', 2, NULL, 23, NULL),
+(3, 'Jose da Silva', 'R. 8', '2011-01-02 00:00:00', 3, 3, 31, NULL),
+(71, 'Silverio dos Reis', 'r. C', '2009-01-05 00:00:00', 3, NULL, 31, 31),
+(91, 'Reis da Silva', 'R. Z', '2011-11-05 00:00:00', 3, NULL, 31, NULL),
+(55, 'Lucas', 'R 31', '2013-07-01 00:00:00', 3, NULL, 32, 32),
+(222, 'Marina', 'R 31', '2015-01-07 00:00:00', 3, NULL, 32, NULL),
+(725, 'Angelo', 'R. X', '2001-03-01 00:00:00', 2, NULL, 21, NULL);
+
+INSERT INTO vencimento
+(cod_venc, nome, tipo, valor)
+VALUES
+(1, 'salario base Analista de Sistemas', 'V', 5000.00),
+(2, 'Salario base Contador', 'V', 3000.00),
+(3, 'Salario Base Engenheiro', 'V', 4500.00),
+(4, 'Salario Base Projetista Software', 'V', 5000.00),
+(5, 'Salario Base Programador de Sistemas', 'V', 3000.00),
+(6, 'Gratificacao Chefia Departamento', 'V', 3750.00),
+(7, 'Gratificacao Chefia Divisao', 'V', 2200.00),
+(8, 'Salario Trabalhador Costrucao Civil', 'V', 800.00),
+(9, 'Auxilio Salario Familia', 'V', 300.00),
+(10, 'Gratificacao Tempo de servico', 'V', 350.00),
+(11, 'Insalubridade', 'V', 800.00),
+(12, 'Gratificacao por titulacao - Doutorado', 'V', 2000.00),
+(13, 'Gratificacao por Titularidade - Mestrado', 'V', 800.00);
+
+/*  Execute this query to drop the tables */
+-- DROP TABLE vencimento;
+-- DROP TABLE empregado;
+-- DROP TABLE emp_venc;
+-- DROP TABLE emp_desc;
+-- DROP TABLE divisao;
+-- DROP TABLE desconto;
+-- DROP TABLE dependente;
+-- DROP TABLE departamento;","with recursive vencimentos as (
+    select
+        empregado.matr,
+        empregado.lotacao as cod_dep,
+        empregado.lotacao_div as cod_divisao,
+        sum(coalesce(vencimento.valor, 0)) as vencimento_total
+    from
+        empregado
+    left join
+        emp_venc
+        on
+            empregado.matr = emp_venc.matr
+    left join
+        vencimento
+        on
+            emp_venc.cod_venc = vencimento.cod_venc
+    group by
+        empregado.matr, empregado.lotacao, empregado.lotacao_div
+),
+
+descontos as (
+    select
+        empregado.matr,
+        empregado.lotacao as cod_dep,
+        empregado.lotacao_div as cod_divisao,
+        sum(coalesce(desconto.valor, 0)) as desconto_total
+    from
+        empregado
+    left join
+        emp_desc
+        on
+            empregado.matr = emp_desc.matr
+    left join
+        desconto
+        on
+            emp_desc.cod_desc = desconto.cod_desc
+    group by
+        empregado.matr, empregado.lotacao, empregado.lotacao_div
+),
+
+salarios_liquidos as (
+    select
+        vencimentos.cod_dep,
+        vencimentos.cod_divisao,
+        vencimentos.vencimento_total
+        - descontos.desconto_total as salario_liquido
+    from
+        vencimentos
+    inner join
+        descontos
+        on
+            vencimentos.matr = descontos.matr
+)
+
+select
+    departamento.nome,
+    divisao.nome,
+    round(avg(salarios_liquidos.salario_liquido), 2) as media,
+    round(max(salarios_liquidos.salario_liquido), 2) as maior
+from
+    divisao
+inner join
+    departamento
+    on
+        divisao.cod_dep = departamento.cod_dep
+inner join
+    salarios_liquidos
+    on
+        departamento.cod_dep = salarios_liquidos.cod_dep
+        and divisao.cod_divisao = salarios_liquidos.cod_divisao
+group by
+    divisao.cod_divisao, divisao.cod_dep, departamento.nome, divisao.nome
+order by
+    media desc;",13.0,-0.186,1,2
+2990,CPF Dos Empregados,Vânia Vida,https://judge.beecrowd.com/pt/problems/view/2990,"Mostrar o CPF, nome dos empregados e o nome do departamento dos empregados que não trabalham em nenhum projeto. O resultado deve estar ordenado por cpf",4,4390,10,1,1,0.769,4,Intermediário,JOIN,"WHERE, ORDER BY, JOIN, Tratamento de NULL",1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2990
+
+CREATE TABLE empregados (
+    cpf varchar(15),
+    enome varchar(60),
+    salario float,
+    cpf_supervisor varchar(15),
+    dnumero integer,
+    PRIMARY KEY (cpf)
+);
+
+GRANT SELECT ON empregados TO sql_user;
+
+CREATE TABLE departamentos (
+    dnumero integer,
+    dnome varchar(60),
+    cpf_gerente varchar(15),
+    PRIMARY KEY (dnumero),
+    CONSTRAINT fk_cpf FOREIGN KEY(cpf_gerente) REFERENCES empregados(cpf)
+);
+
+GRANT SELECT ON departamentos TO sql_user;
+
+CREATE TABLE trabalha (
+    cpf_emp varchar(15),
+    pnumero integer,
+    CONSTRAINT fk_cpfemp FOREIGN KEY(cpf_emp) REFERENCES empregados(cpf)
+);
+
+GRANT SELECT ON trabalha TO sql_user;
+
+CREATE TABLE projetos (
+    pnumero integer,
+    pnome varchar(45),
+    dnumero integer,
+    PRIMARY KEY(pnumero),
+    CONSTRAINT fk_dnum FOREIGN KEY(dnumero) REFERENCES
+    departamentos(dnumero)
+);
+
+GRANT SELECT ON projetos TO sql_user;
+
+Insert Into empregados
+values ('049382234322','João Silva', 2350, '2434332222', 1010);
+Insert Into empregados(cpf, enome, salario, cpf_supervisor, dnumero)
+values ('586733922290','Mario Silveira', 3500, '2434332222', 1010);
+Insert Into empregados
+values ('2434332222','Aline Barros', 2350, NULL, 1010);
+
+Insert Into empregados
+values ('1733332162','Tulio Vidal', 8350, NULL, 1020);
+Insert Into empregados
+values ('4244435272','Juliana Rodrigues', 3310, NULL, 1020);
+Insert Into empregados
+values ('1014332672','Natalia Marques', 2900, NULL, 1010);
+
+
+Insert Into departamentos (dnumero, dnome, cpf_gerente)
+values (1010, 'Pesquisa', '049382234322');
+Insert Into departamentos
+values (1020, 'Ensino', '2434332222');
+Insert Into trabalha (cpf_emp, pnumero)
+values ('049382234322', 2010);
+Insert Into trabalha (cpf_emp, pnumero)
+values ('586733922290', 2020);
+Insert Into trabalha (cpf_emp, pnumero)
+values ('049382234322', 2020);
+Insert Into projetos (pnumero, pnome, dnumero)
+values (2010,'Alpha', 1010);
+Insert Into projetos (pnumero, pnome, dnumero)
+values (2020,'Beta', 1020);
+
+ALTER TABLE empregados ADD CONSTRAINT fk_dnum FOREIGN KEY(dnumero)
+REFERENCES departamentos(dnumero);
+ALTER TABLE trabalha ADD CONSTRAINT fk_pnum FOREIGN KEY(pnumero)
+REFERENCES projetos(pnumero);
+
+/*  Execute this query to drop the tables */
+--DROP TABLE empregados, trabalha, departamentos, projetos CASCADE;","select
+    empregados.cpf,
+    empregados.enome,
+    departamentos.dnome
+from
+    empregados
+inner join departamentos on empregados.dnumero = departamentos.dnumero
+left join trabalha on empregados.cpf = trabalha.cpf_emp
+where trabalha.pnumero is NULL
+order by empregados.cpf asc;",12.0,-1.4,0,0
+2991,Estatísticas dos Departamentos,Angelo Brayner,https://judge.beecrowd.com/pt/problems/view/2991,"Para cada departamento da empresa, mostrar o nome dele, a quantidade de empregados lotados, a média salarial, o maior salário e o menor salário. O resultado deve estar em ordem decrescente por média salarial.
+
+Dica: Você pode utilizar a função COALESCE(check_expression , 0) para substituir algum valor null por zero; Além disso, você também pode utilizar a função ROUND(value, 2) para exibir os valores com 2 casas decimais.",9,1240,0,1,3,0.754,8,Avançado,Recursão,"ORDER BY, Agregação, JOIN, GROUP BY, Subconsulta, CASE, Tratamento de NULL, Recursão",0,1,0,0,0,0,1,1,1,0,1,0,0,1,0,1,0,1,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2991
+
+CREATE TABLE departamento(
+    cod_dep int,
+    nome varchar(50),
+    endereco varchar(50)
+);
+
+GRANT SELECT ON departamento TO sql_user;
+-- ------------------------------------------------------------
+CREATE TABLE dependente
+(matr int, nome varchar(50), endereco varchar(50));
+
+GRANT SELECT ON dependente TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE desconto
+(cod_desc int, nome varchar(50), tipo varchar(10), valor numeric);
+
+GRANT SELECT ON desconto TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE divisao
+(cod_divisao int, nome varchar(50), endereco varchar(50), cod_dep int);
+
+GRANT SELECT ON divisao TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE emp_desc
+(cod_desc int, matr int);
+
+GRANT SELECT ON emp_desc TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE emp_venc
+(cod_venc int, matr int);
+
+GRANT SELECT ON emp_venc TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE empregado
+(matr int, nome varchar(50), endereco varchar(50), data_lotacao timestamp, lotacao int,
+gerencia_cod_dep int, lotacao_div int, gerencia_div int);
+
+GRANT SELECT ON empregado TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE vencimento
+(cod_venc int, nome varchar(50), tipo varchar(10), valor numeric);
+
+GRANT SELECT ON vencimento TO sql_user;
+
+INSERT INTO departamento
+(""cod_dep"", ""nome"", ""endereco"")
+VALUES
+(1, 'Contabilidade', 'R. X'),
+(2, 'TI', 'R. Y'),
+(3, 'Engenharia', 'R. Y');
+
+INSERT INTO dependente
+(matr, nome, endereco)
+VALUES
+(9999, 'Francisco Jose', 'R. Z'),
+(88, 'Maria da Silva', 'R. T'),
+(55, 'Virgulino da Silva', 'R. 31');
+
+INSERT INTO desconto
+(cod_desc, nome, tipo, valor)
+VALUES
+(91, 'IR', 'V', 400.00),
+(92, 'Plano de saude', 'v', 300.00),
+(93, NULL, NULL, NULL);
+
+INSERT INTO divisao
+(cod_divisao, nome, endereco, cod_dep)
+VALUES
+(11, 'Ativo', 'R. X', 1),
+(12, 'Passivo', 'R. X', 1),
+(21, 'Desenvoilvimento de Projetos', 'R. Y', 2),
+(22, 'Analise de Sistemas', 'R. Y', 2),
+(23, 'Programacao', 'R. W', 2),
+(31, 'Concreto', 'R Y', 3),
+(32, 'Calculo Estrutural', 'R. Y', 3);
+
+INSERT INTO emp_desc
+(cod_desc, matr)
+VALUES
+(91, 3),
+(91, 27),
+(91, 9999),
+(92, 27),
+(92, 71),
+(92, 88),
+(92, 9999);
+
+INSERT INTO emp_venc
+(cod_venc, matr)
+VALUES
+(1, 27),
+(1, 88),
+(1, 135),
+(1, 254),
+(1, 431),
+(2, 1),
+(2, 5),
+(2, 7),
+(2, 13),
+(2, 33),
+(2, 9999),
+(3, 3),
+(3, 55),
+(3, 71),
+(3, 222),
+(4, 25),
+(4, 476),
+(5, 371),
+(6, 3),
+(6, 27),
+(6, 9999),
+(7, 5),
+(7, 33),
+(7, 55),
+(7, 71),
+(7, 88),
+(7, 254),
+(7, 476),
+(8, 25),
+(8, 91),
+(9, 1),
+(9, 27),
+(9, 91),
+(9, 135),
+(9, 371),
+(9, 9999),
+(10, 371),
+(10, 9999),
+(11, 91),
+(12, 3),
+(12, 27),
+(12, 254),
+(12, 9999),
+(13, 3),
+(13, 5),
+(13, 7),
+(13, 25),
+(13, 33),
+(13, 88),
+(13, 135);
+
+INSERT INTO empregado
+(matr, nome, endereco, data_lotacao, lotacao, gerencia_cod_dep, lotacao_div, gerencia_div)
+VALUES
+(9999, 'Jose Sampaio', 'R Z', '2006-06-06 00:00:00', 1, 1, 12, NULL),
+(33, 'Jose Maria', 'R 21', '2006-03-01 00:00:00', 1, NULL, 11, 11),
+(1, 'Maria Jose', 'R. 52', '2003-03-01 00:00:00', 1, NULL, 11, NULL),
+(7, 'Yasmim', 'R. 13', '210-07-02 00:00:00', 1, NULL, 11, NULL),
+(5, 'Rebeca', 'R. 1', '2011-04-01 00:00:00', 1, NULL, 12, 12),
+(13, 'Sofia', 'R. 28', '2010-09-09 00:00:00', 1, NULL, 12, NULL),
+(27, 'Andre', 'R. Z', '2005-05-01 00:00:00', 2, 2, 22, NULL),
+(88, 'Yami', 'R. T', '2014-02-01 00:00:00', 2, NULL, 21, 21),
+(431, 'Joao da Silva', 'R. Y', '2011-07-03 00:00:00', 2, NULL, 21, NULL),
+(135, 'Ricardo Reis', 'R. 33', '2009-08-01 00:00:00', 2, NULL, 21, NULL),
+(254, 'Barbara', 'R. Z', '2008-01-03 00:00:00', 2, NULL, 22, 22),
+(371, 'Ines', 'R. Y', '2005-01-01 00:00:00', 2, NULL, 22, NULL),
+(476, 'Flor', 'r. Z', '2015-10-28 00:00:00', 2, NULL, 23, 23),
+(25, 'Lina', 'R. 67', '2014-09-01 00:00:00', 2, NULL, 23, NULL),
+(3, 'Jose da Silva', 'R. 8', '2011-01-02 00:00:00', 3, 3, 31, NULL),
+(71, 'Silverio dos Reis', 'r. C', '2009-01-05 00:00:00', 3, NULL, 31, 31),
+(91, 'Reis da Silva', 'R. Z', '2011-11-05 00:00:00', 3, NULL, 31, NULL),
+(55, 'Lucas', 'R 31', '2013-07-01 00:00:00', 3, NULL, 32, 32),
+(222, 'Marina', 'R 31', '2015-01-07 00:00:00', 3, NULL, 32, NULL),
+(725, 'Angelo', 'R. X', '2001-03-01 00:00:00', 2, NULL, 21, NULL);
+
+INSERT INTO vencimento
+(cod_venc, nome, tipo, valor)
+VALUES
+(1, 'salario base Analista de Sistemas', 'V', 5000.00),
+(2, 'Salario base Contador', 'V', 3000.00),
+(3, 'Salario Base Engenheiro', 'V', 4500.00),
+(4, 'Salario Base Projetista Software', 'V', 5000.00),
+(5, 'Salario Base Programador de Sistemas', 'V', 3000.00),
+(6, 'Gratificacao Chefia Departamento', 'V', 3750.00),
+(7, 'Gratificacao Chefia Divisao', 'V', 2200.00),
+(8, 'Salario Trabalhador Costrucao Civil', 'V', 800.00),
+(9, 'Auxilio Salario Familia', 'V', 300.00),
+(10, 'Gratificacao Tempo de servico', 'V', 350.00),
+(11, 'Insalubridade', 'V', 800.00),
+(12, 'Gratificacao por titulacao - Doutorado', 'V', 2000.00),
+(13, 'Gratificacao por Titularidade - Mestrado', 'V', 800.00);
+
+/*  Execute this query to drop the tables */
+-- DROP TABLE vencimento;
+-- DROP TABLE empregado;
+-- DROP TABLE emp_venc;
+-- DROP TABLE emp_desc;
+-- DROP TABLE divisao;
+-- DROP TABLE desconto;
+-- DROP TABLE dependente;
+-- DROP TABLE departamento;","with recursive
+vencimentos as (
+    select
+        empregado.matr,
+        empregado.lotacao as cod_dep,
+        empregado.lotacao_div as cod_divisao,
+        sum(coalesce(vencimento.valor, 0)) as vencimento_total
+    from
+        empregado
+    left join emp_venc on empregado.matr = emp_venc.matr
+    left join vencimento on emp_venc.cod_venc = vencimento.cod_venc
+    group by
+        empregado.matr,
+        empregado.lotacao,
+        empregado.lotacao_div
+),
+
+descontos as (
+    select
+        empregado.matr,
+        empregado.lotacao as cod_dep,
+        empregado.lotacao_div as cod_divisao,
+        sum(coalesce(desconto.valor, 0)) as desconto_total
+    from
+        empregado
+    left join emp_desc on empregado.matr = emp_desc.matr
+    left join desconto on emp_desc.cod_desc = desconto.cod_desc
+    group by
+        empregado.matr,
+        empregado.lotacao,
+        empregado.lotacao_div
+),
+
+salarios_liquidos as (
+    select
+        vencimentos.cod_dep,
+        vencimentos.cod_divisao,
+        vencimentos.vencimento_total
+        - descontos.desconto_total as salario_liquido
+    from
+        vencimentos
+    inner join descontos on vencimentos.matr = descontos.matr
+)
+
+select
+    departamento.nome as ""Nome Departamento"",
+    count(*) as ""Numero de Empregados"",
+    case
+        when avg(salarios_liquidos.salario_liquido) = 0 then '0' else
+            round(avg(salarios_liquidos.salario_liquido), 2)
+    end as ""Media Salarial"",
+    case
+        when max(salarios_liquidos.salario_liquido) = 0 then '0' else
+            round(max(salarios_liquidos.salario_liquido), 2)
+    end as ""Maior Salario"",
+    case
+        when min(salarios_liquidos.salario_liquido) = 0 then '0' else
+            round(min(salarios_liquidos.salario_liquido), 2)
+    end as ""Menor Salario""
+from
+    divisao
+inner join departamento on divisao.cod_dep = departamento.cod_dep
+inner join salarios_liquidos
+    on
+        departamento.cod_dep = salarios_liquidos.cod_dep
+        and divisao.cod_divisao = salarios_liquidos.cod_divisao
+group by
+    divisao.cod_dep,
+    departamento.nome
+order by
+    ""Media Salarial"" desc;",14.0,0.541,1,2
+2992,Divisões Com Maiores Médias Salariais,Angelo Brayner,https://judge.beecrowd.com/pt/problems/view/2992,"Listar as divisões com maiores médias salariais dentro de seus departamentos. A saída deverá apresentar o nome do departamento, o nome da divisão com maior média salarial do departamento e a média salarial da divisão. O resultado deve estar em ordem decrescente usando a média salarial.
+
+Dica: Você pode utilizar a função COALESCE(check_expression , 0) para substituir algum valor null por zero; Além disso, você também pode utilizar a função ROUND(value, 2) para exibir os valores com 2 casas decimais.",7,1143,0,1,4,0.716,9,Avançado,Recursão,"WHERE, ORDER BY, Agregação, JOIN, GROUP BY, Subconsulta, Tratamento de NULL, Recursão, Função de janela",1,1,0,0,0,0,1,1,1,0,1,0,0,0,0,1,0,1,1,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2992
+
+CREATE TABLE departamento(
+    cod_dep int,
+    nome varchar(50),
+    endereco varchar(50)
+);
+
+GRANT SELECT ON departamento TO sql_user;
+-- ------------------------------------------------------------
+CREATE TABLE dependente
+(matr int, nome varchar(50), endereco varchar(50));
+
+GRANT SELECT ON dependente TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE desconto
+(cod_desc int, nome varchar(50), tipo varchar(10), valor numeric);
+
+GRANT SELECT ON desconto TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE divisao
+(cod_divisao int, nome varchar(50), endereco varchar(50), cod_dep int);
+
+GRANT SELECT ON divisao TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE emp_desc
+(cod_desc int, matr int);
+
+GRANT SELECT ON emp_desc TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE emp_venc
+(cod_venc int, matr int);
+
+GRANT SELECT ON emp_venc TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE empregado
+(matr int, nome varchar(50), endereco varchar(50), data_lotacao timestamp, lotacao int,
+gerencia_cod_dep int, lotacao_div int, gerencia_div int);
+
+GRANT SELECT ON empregado TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE vencimento
+(cod_venc int, nome varchar(50), tipo varchar(10), valor numeric);
+
+GRANT SELECT ON vencimento TO sql_user;
+
+INSERT INTO departamento
+(""cod_dep"", ""nome"", ""endereco"")
+VALUES
+(1, 'Contabilidade', 'R. X'),
+(2, 'TI', 'R. Y'),
+(3, 'Engenharia', 'R. Y');
+
+INSERT INTO dependente
+(matr, nome, endereco)
+VALUES
+(9999, 'Francisco Jose', 'R. Z'),
+(88, 'Maria da Silva', 'R. T'),
+(55, 'Virgulino da Silva', 'R. 31');
+
+INSERT INTO desconto
+(cod_desc, nome, tipo, valor)
+VALUES
+(91, 'IR', 'V', 400.00),
+(92, 'Plano de saude', 'v', 300.00),
+(93, NULL, NULL, NULL);
+
+INSERT INTO divisao
+(cod_divisao, nome, endereco, cod_dep)
+VALUES
+(11, 'Ativo', 'R. X', 1),
+(12, 'Passivo', 'R. X', 1),
+(21, 'Desenvoilvimento de Projetos', 'R. Y', 2),
+(22, 'Analise de Sistemas', 'R. Y', 2),
+(23, 'Programacao', 'R. W', 2),
+(31, 'Concreto', 'R Y', 3),
+(32, 'Calculo Estrutural', 'R. Y', 3);
+
+INSERT INTO emp_desc
+(cod_desc, matr)
+VALUES
+(91, 3),
+(91, 27),
+(91, 9999),
+(92, 27),
+(92, 71),
+(92, 88),
+(92, 9999);
+
+INSERT INTO emp_venc
+(cod_venc, matr)
+VALUES
+(1, 27),
+(1, 88),
+(1, 135),
+(1, 254),
+(1, 431),
+(2, 1),
+(2, 5),
+(2, 7),
+(2, 13),
+(2, 33),
+(2, 9999),
+(3, 3),
+(3, 55),
+(3, 71),
+(3, 222),
+(4, 25),
+(4, 476),
+(5, 371),
+(6, 3),
+(6, 27),
+(6, 9999),
+(7, 5),
+(7, 33),
+(7, 55),
+(7, 71),
+(7, 88),
+(7, 254),
+(7, 476),
+(8, 25),
+(8, 91),
+(9, 1),
+(9, 27),
+(9, 91),
+(9, 135),
+(9, 371),
+(9, 9999),
+(10, 371),
+(10, 9999),
+(11, 91),
+(12, 3),
+(12, 27),
+(12, 254),
+(12, 9999),
+(13, 3),
+(13, 5),
+(13, 7),
+(13, 25),
+(13, 33),
+(13, 88),
+(13, 135);
+
+INSERT INTO empregado
+(matr, nome, endereco, data_lotacao, lotacao, gerencia_cod_dep, lotacao_div, gerencia_div)
+VALUES
+(9999, 'Jose Sampaio', 'R Z', '2006-06-06 00:00:00', 1, 1, 12, NULL),
+(33, 'Jose Maria', 'R 21', '2006-03-01 00:00:00', 1, NULL, 11, 11),
+(1, 'Maria Jose', 'R. 52', '2003-03-01 00:00:00', 1, NULL, 11, NULL),
+(7, 'Yasmim', 'R. 13', '210-07-02 00:00:00', 1, NULL, 11, NULL),
+(5, 'Rebeca', 'R. 1', '2011-04-01 00:00:00', 1, NULL, 12, 12),
+(13, 'Sofia', 'R. 28', '2010-09-09 00:00:00', 1, NULL, 12, NULL),
+(27, 'Andre', 'R. Z', '2005-05-01 00:00:00', 2, 2, 22, NULL),
+(88, 'Yami', 'R. T', '2014-02-01 00:00:00', 2, NULL, 21, 21),
+(431, 'Joao da Silva', 'R. Y', '2011-07-03 00:00:00', 2, NULL, 21, NULL),
+(135, 'Ricardo Reis', 'R. 33', '2009-08-01 00:00:00', 2, NULL, 21, NULL),
+(254, 'Barbara', 'R. Z', '2008-01-03 00:00:00', 2, NULL, 22, 22),
+(371, 'Ines', 'R. Y', '2005-01-01 00:00:00', 2, NULL, 22, NULL),
+(476, 'Flor', 'r. Z', '2015-10-28 00:00:00', 2, NULL, 23, 23),
+(25, 'Lina', 'R. 67', '2014-09-01 00:00:00', 2, NULL, 23, NULL),
+(3, 'Jose da Silva', 'R. 8', '2011-01-02 00:00:00', 3, 3, 31, NULL),
+(71, 'Silverio dos Reis', 'r. C', '2009-01-05 00:00:00', 3, NULL, 31, 31),
+(91, 'Reis da Silva', 'R. Z', '2011-11-05 00:00:00', 3, NULL, 31, NULL),
+(55, 'Lucas', 'R 31', '2013-07-01 00:00:00', 3, NULL, 32, 32),
+(222, 'Marina', 'R 31', '2015-01-07 00:00:00', 3, NULL, 32, NULL),
+(725, 'Angelo', 'R. X', '2001-03-01 00:00:00', 2, NULL, 21, NULL);
+
+INSERT INTO vencimento
+(cod_venc, nome, tipo, valor)
+VALUES
+(1, 'salario base Analista de Sistemas', 'V', 5000.00),
+(2, 'Salario base Contador', 'V', 3000.00),
+(3, 'Salario Base Engenheiro', 'V', 4500.00),
+(4, 'Salario Base Projetista Software', 'V', 5000.00),
+(5, 'Salario Base Programador de Sistemas', 'V', 3000.00),
+(6, 'Gratificacao Chefia Departamento', 'V', 3750.00),
+(7, 'Gratificacao Chefia Divisao', 'V', 2200.00),
+(8, 'Salario Trabalhador Costrucao Civil', 'V', 800.00),
+(9, 'Auxilio Salario Familia', 'V', 300.00),
+(10, 'Gratificacao Tempo de servico', 'V', 350.00),
+(11, 'Insalubridade', 'V', 800.00),
+(12, 'Gratificacao por titulacao - Doutorado', 'V', 2000.00),
+(13, 'Gratificacao por Titularidade - Mestrado', 'V', 800.00);
+
+/*  Execute this query to drop the tables */
+-- DROP TABLE vencimento;
+-- DROP TABLE empregado;
+-- DROP TABLE emp_venc;
+-- DROP TABLE emp_desc;
+-- DROP TABLE divisao;
+-- DROP TABLE desconto;
+-- DROP TABLE dependente;
+-- DROP TABLE departamento;","with recursive
+vencimentos as (
+    select
+        empregado.matr,
+        empregado.lotacao as cod_dep,
+        empregado.lotacao_div as cod_divisao,
+        sum(coalesce(vencimento.valor, 0)) as vencimento_total
+    from
+        empregado
+    left join emp_venc on empregado.matr = emp_venc.matr
+    left join vencimento on emp_venc.cod_venc = vencimento.cod_venc
+    group by
+        empregado.matr,
+        empregado.lotacao,
+        empregado.lotacao_div
+),
+
+descontos as (
+    select
+        empregado.matr,
+        empregado.lotacao as cod_dep,
+        empregado.lotacao_div as cod_divisao,
+        sum(coalesce(desconto.valor, 0)) as desconto_total
+    from
+        empregado
+    left join emp_desc on empregado.matr = emp_desc.matr
+    left join desconto on emp_desc.cod_desc = desconto.cod_desc
+    group by
+        empregado.matr,
+        empregado.lotacao,
+        empregado.lotacao_div
+),
+
+salarios_liquidos as (
+    select
+        vencimentos.cod_dep,
+        vencimentos.cod_divisao,
+        vencimentos.vencimento_total
+        - descontos.desconto_total as salario_liquido
+    from
+        vencimentos
+    inner join descontos on vencimentos.matr = descontos.matr
+),
+
+media_salarios as (
+    select
+        salarios_liquidos.cod_dep,
+        salarios_liquidos.cod_divisao,
+        avg(salarios_liquidos.salario_liquido) as media
+    from
+        salarios_liquidos
+    group by
+        salarios_liquidos.cod_divisao,
+        salarios_liquidos.cod_dep
+),
+
+media_e_maiores_salarios as (
+    select
+        media_salarios.cod_dep,
+        media_salarios.cod_divisao,
+        media_salarios.media,
+        max(media_salarios.media)
+            over (partition by media_salarios.cod_dep)
+            as maior_media
+    from
+        media_salarios
+)
+
+select
+    departamento.nome as departamento,
+    divisao.nome as divisao,
+    round(media_e_maiores_salarios.media, 2) as media
+from
+    media_e_maiores_salarios
+inner join
+    departamento
+    on media_e_maiores_salarios.cod_dep = departamento.cod_dep
+inner join divisao on media_e_maiores_salarios.cod_divisao = divisao.cod_divisao
+where
+    media_e_maiores_salarios.media = media_e_maiores_salarios.maior_media
+order by
+    media desc;",15.0,-0.676,1,2
+2993,Mais Frequente,Mario Nascimento,https://judge.beecrowd.com/pt/problems/view/2993,"Dada uma single-column table de valores inteiros, qual é o valor atributo mais frequente, ou seja, a moda estatística desses valores?",3,4069,0,1,1,0.955,3,Intermediário,GROUP BY,"ORDER BY, Agregação, GROUP BY",0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2993
+
+CREATE TABLE value_table (
+    amount integer
+);
+
+GRANT SELECT ON value_table TO sql_user;
+
+insert into
+value_table (amount)
+values
+(4),(6),(7),(1),(1),(2),(3),(2),(3),(1),(5),(6),(1),(7),(8),(9),(10),(11),(12),(4),(5),(5),(3),(6),(2),(2),(1);
+
+/*  Execute this query to drop the tables */
+-- DROP TABLE value_table;","SELECT value_table.amount
+ FROM value_table
+ group by value_table.amount
+ order by  count(value_table.amount) desc 
+ limit 1;",4.5,-0.051,0,0
+2994,Quanto Ganha um Médico?,Gustavo Moraes,https://judge.beecrowd.com/pt/problems/view/2994,"Você trabalha no setor de TI de um Hospital e precisa calcular a receita de pagamento de cada um dos médicos. Cada médico ganha 150$ por hora mais uma porcentagem dependendo do turno de trabalho, por exemplo, o médico Wellington trabalhou 1 hora no turno do dia, e 2 horas no turno da noite, logo seu salário semanal será: ( ( 1 * 150 ) + 1% ) + ( ( 2 * 150 ) + 15% ) = 496.5. Além disso, você pode usar a função round(value,1) para exibir os salários com 1 casa decimal e ordene o resultado do maior para o menor salário.
+",2,3800,4,1,4,0.684,4,Intermediário,JOIN,"ORDER BY, Agregação, JOIN, GROUP BY",0,1,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2994
+
+CREATE TABLE doctors (
+id integer PRIMARY KEY,
+name varchar(50)
+);
+
+GRANT SELECT ON doctors TO sql_user;
+
+CREATE TABLE work_shifts (
+id integer PRIMARY KEY,
+name varchar(50),
+bonus numeric
+);
+
+GRANT SELECT ON work_shifts TO sql_user;
+
+CREATE TABLE attendances (
+id integer PRIMARY KEY,
+id_doctor integer,
+hours integer,
+id_work_shift integer,
+FOREIGN KEY (id_doctor) REFERENCES  doctors(id),
+FOREIGN KEY (id_work_shift) REFERENCES  work_shifts(id)
+);
+
+GRANT SELECT ON attendances TO sql_user;
+
+insert into doctors (id,name) values
+(1,'Arlino'),
+(2,'Tiago'),
+(3,'Amanda'),
+(4,'Wellington');
+
+insert into work_shifts (id,name,bonus) values
+(1,'nocturnal',15),
+(2,'afternoon',2),
+(3,'day',1);
+
+insert into  attendances (id, id_doctor, hours, id_work_shift) values
+(1,1,5,1),
+(2,3,2,1),
+(3,3,3,2),
+(4,2,2,3),
+(5,1,5,3),
+(6,4,1,3),
+(7,4,2,1),
+(8,3,2,2),
+(9,2,4,2);
+
+/*  Execute this query to drop the tables */
+-- DROP TABLE attendances;
+-- DROP TABLE work_shifts;
+-- DROP TABLE doctors;","SELECT t2.name, SUM(ROUND(((150*t1.hours)*(1+(t3.bonus/100))),1))
+AS salary
+FROM attendances as t1
+INNER JOIN doctors AS t2 ON t2.id = t1.id_doctor 
+INNER JOIN work_shifts AS t3 ON t3.id = t1.id_work_shift
+GROUP BY t2.name
+ORDER BY salary DESC;",8.5,-1.515,0,1
+2995,A Mensagem do Sensor,Gustavo Moraes,https://judge.beecrowd.com/pt/problems/view/2995,"​
+Um sensor captura a temperatura do ambiente a cada minuto. Os registros também possuem um marcador, em que todas as vezes que a temperatura muda em relação a última captura esse marcador é incrementado. Quando o sensor armazena 15 registros ele prepara uma mensagem para enviá-la o computador central. Para reduzir o tamanho da mensagem o sensor compacta os registros próximos com a mesma temperatura e adiciona o número de registros que foram compactados. Construa uma consulta para resolver esse problema, mostrando a temperatura e o número de registros correspondente.",5,2500,0,1,5,0.626,3,Intermediário,GROUP BY,"ORDER BY, Agregação, GROUP BY",0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2995
+
+CREATE TABLE records (
+id integer PRIMARY KEY,
+temperature integer,
+mark integer
+);
+
+GRANT SELECT ON records TO sql_user;
+
+insert into records (id,temperature,mark) values
+(1,30,1),
+(2,30,1),
+(3,30,1),
+(4,32,2),
+(5,32,2),
+(6,32,2),
+(7,32,2),
+(8,30,3),
+(9,30,3),
+(10,30,3),
+(11,31,4),
+(12,31,4),
+(13,33,5),
+(14,33,5),
+(15,33,5);
+
+/*  Execute this query to drop the tables */
+-- DROP TABLE records;","SELECT 
+	temperature,
+	COUNT(temperature) AS NUMBER_OF_RECORDS
+FROM records
+GROUP BY mark,
+	     temperature
+ORDER BY mark;",4.5,0.921,0,1
+2996,Entrega de Pacotes,Gustavo Moraes,https://judge.beecrowd.com/pt/problems/view/2996,"Você trabalha em uma transportadora e precisa mostrar com urgência o ano e o nome de todos os clientes que enviaram e receberam pacotes azuis ou do ano de 2015 e também que o endereço do seu remetente ou destinatário não seja de Taiwan. Além disso, você deve ordenar o resultado pelo ano de maneira decrescente.",5,2280,4,1,2,0.732,3,Intermediário,JOIN,"WHERE, ORDER BY, JOIN",1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2996
+
+CREATE TABLE users (
+id integer PRIMARY KEY,
+name varchar(50),
+address varchar(50)
+);
+
+GRANT SELECT ON users TO sql_user;
+
+CREATE TABLE packages (
+id_package integer PRIMARY KEY,
+id_user_sender integer,
+id_user_receiver integer,
+color varchar(50),
+year integer,
+FOREIGN KEY (id_user_sender) REFERENCES users(id),
+FOREIGN KEY (id_user_receiver) REFERENCES users(id)
+);
+
+GRANT SELECT ON packages TO sql_user;
+
+insert into users (id,name,address) values
+(1,'Edgar Codd','England'),
+(2,'Peter Chen','Taiwan'),
+(3,'Jim Gray','United States'),
+(4,'Elizabeth ONeil','United States');
+
+insert into packages (id_package,id_user_sender,id_user_receiver,color,year) values
+(1,1,2,'blue',2015),
+(2,1,3,'blue',2019),
+(3,2,4,'red',2019),
+(4,2,1,'green',2018),
+(5,3,4,'red',2015),
+(6,4,3,'blue',2019);
+
+/*  Execute this query to drop the tables */
+-- DROP TABLE packages;
+-- DROP TABLE users;","SELECT packages.year, t1.name as sender , t2.name as receiver
+ FROM packages join users as t1 on
+ t1.id = packages.id_user_sender 
+ join users as t2 on
+ t2.id = packages.id_user_receiver 
+ where (packages.color = 'blue' or
+ packages.year = '2015') and
+ t1.address <> 'Taiwan' and
+ t2.address <> 'Taiwan' 
+ order by year desc",8.0,0.065,0,0
+2997,Pagamento dos Empregados,Angelo Brayner,https://judge.beecrowd.com/pt/problems/view/2997,"Para cada empregado, listar nome do departamento, nome do empregado, salário bruto, total de descontos e salário líquido. A saída deve estar agrupada por departamento e divisão. Dentro de cada divisão, a lista de empregados deve estar de forma decrescente por salário líquido.
+
+Dica: Você pode utilizar a função COALESCE(check_expression , 0) para substituir algum valor null por zero; Além disso, você também pode utilizar a função ROUND(value, 2) para exibir os valores com 2 casas decimais.",9,1294,0,1,4,0.654,8,Avançado,Recursão,"ORDER BY, Agregação, JOIN, GROUP BY, Subconsulta, CASE, Tratamento de NULL, Recursão",0,1,0,0,0,0,1,1,1,0,1,0,0,1,0,1,0,1,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2997
+
+CREATE TABLE departamento(
+    cod_dep int,
+    nome varchar(50),
+    endereco varchar(50)
+);
+
+GRANT SELECT ON departamento TO sql_user;
+-- ------------------------------------------------------------
+CREATE TABLE dependente
+(matr int, nome varchar(50), endereco varchar(50));
+
+GRANT SELECT ON dependente TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE desconto
+(cod_desc int, nome varchar(50), tipo varchar(10), valor numeric);
+
+GRANT SELECT ON desconto TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE divisao
+(cod_divisao int, nome varchar(50), endereco varchar(50), cod_dep int);
+
+GRANT SELECT ON divisao TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE emp_desc
+(cod_desc int, matr int);
+
+GRANT SELECT ON emp_desc TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE emp_venc
+(cod_venc int, matr int);
+
+GRANT SELECT ON emp_venc TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE empregado
+(matr int, nome varchar(50), endereco varchar(50), data_lotacao timestamp, lotacao int,
+gerencia_cod_dep int, lotacao_div int, gerencia_div int);
+
+GRANT SELECT ON empregado TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE vencimento
+(cod_venc int, nome varchar(50), tipo varchar(10), valor numeric);
+
+GRANT SELECT ON vencimento TO sql_user;
+
+INSERT INTO departamento
+(""cod_dep"", ""nome"", ""endereco"")
+VALUES
+(1, 'Contabilidade', 'R. X'),
+(2, 'TI', 'R. Y'),
+(3, 'Engenharia', 'R. Y');
+
+INSERT INTO dependente
+(matr, nome, endereco)
+VALUES
+(9999, 'Francisco Jose', 'R. Z'),
+(88, 'Maria da Silva', 'R. T'),
+(55, 'Virgulino da Silva', 'R. 31');
+
+INSERT INTO desconto
+(cod_desc, nome, tipo, valor)
+VALUES
+(91, 'IR', 'V', 400.00),
+(92, 'Plano de saude', 'v', 300.00),
+(93, NULL, NULL, NULL);
+
+INSERT INTO divisao
+(cod_divisao, nome, endereco, cod_dep)
+VALUES
+(11, 'Ativo', 'R. X', 1),
+(12, 'Passivo', 'R. X', 1),
+(21, 'Desenvoilvimento de Projetos', 'R. Y', 2),
+(22, 'Analise de Sistemas', 'R. Y', 2),
+(23, 'Programacao', 'R. W', 2),
+(31, 'Concreto', 'R Y', 3),
+(32, 'Calculo Estrutural', 'R. Y', 3);
+
+INSERT INTO emp_desc
+(cod_desc, matr)
+VALUES
+(91, 3),
+(91, 27),
+(91, 9999),
+(92, 27),
+(92, 71),
+(92, 88),
+(92, 9999);
+
+INSERT INTO emp_venc
+(cod_venc, matr)
+VALUES
+(1, 27),
+(1, 88),
+(1, 135),
+(1, 254),
+(1, 431),
+(2, 1),
+(2, 5),
+(2, 7),
+(2, 13),
+(2, 33),
+(2, 9999),
+(3, 3),
+(3, 55),
+(3, 71),
+(3, 222),
+(4, 25),
+(4, 476),
+(5, 371),
+(6, 3),
+(6, 27),
+(6, 9999),
+(7, 5),
+(7, 33),
+(7, 55),
+(7, 71),
+(7, 88),
+(7, 254),
+(7, 476),
+(8, 25),
+(8, 91),
+(9, 1),
+(9, 27),
+(9, 91),
+(9, 135),
+(9, 371),
+(9, 9999),
+(10, 371),
+(10, 9999),
+(11, 91),
+(12, 3),
+(12, 27),
+(12, 254),
+(12, 9999),
+(13, 3),
+(13, 5),
+(13, 7),
+(13, 25),
+(13, 33),
+(13, 88),
+(13, 135);
+
+INSERT INTO empregado
+(matr, nome, endereco, data_lotacao, lotacao, gerencia_cod_dep, lotacao_div, gerencia_div)
+VALUES
+(9999, 'Jose Sampaio', 'R Z', '2006-06-06 00:00:00', 1, 1, 12, NULL),
+(33, 'Jose Maria', 'R 21', '2006-03-01 00:00:00', 1, NULL, 11, 11),
+(1, 'Maria Jose', 'R. 52', '2003-03-01 00:00:00', 1, NULL, 11, NULL),
+(7, 'Yasmim', 'R. 13', '210-07-02 00:00:00', 1, NULL, 11, NULL),
+(5, 'Rebeca', 'R. 1', '2011-04-01 00:00:00', 1, NULL, 12, 12),
+(13, 'Sofia', 'R. 28', '2010-09-09 00:00:00', 1, NULL, 12, NULL),
+(27, 'Andre', 'R. Z', '2005-05-01 00:00:00', 2, 2, 22, NULL),
+(88, 'Yami', 'R. T', '2014-02-01 00:00:00', 2, NULL, 21, 21),
+(431, 'Joao da Silva', 'R. Y', '2011-07-03 00:00:00', 2, NULL, 21, NULL),
+(135, 'Ricardo Reis', 'R. 33', '2009-08-01 00:00:00', 2, NULL, 21, NULL),
+(254, 'Barbara', 'R. Z', '2008-01-03 00:00:00', 2, NULL, 22, 22),
+(371, 'Ines', 'R. Y', '2005-01-01 00:00:00', 2, NULL, 22, NULL),
+(476, 'Flor', 'r. Z', '2015-10-28 00:00:00', 2, NULL, 23, 23),
+(25, 'Lina', 'R. 67', '2014-09-01 00:00:00', 2, NULL, 23, NULL),
+(3, 'Jose da Silva', 'R. 8', '2011-01-02 00:00:00', 3, 3, 31, NULL),
+(71, 'Silverio dos Reis', 'r. C', '2009-01-05 00:00:00', 3, NULL, 31, 31),
+(91, 'Reis da Silva', 'R. Z', '2011-11-05 00:00:00', 3, NULL, 31, NULL),
+(55, 'Lucas', 'R 31', '2013-07-01 00:00:00', 3, NULL, 32, 32),
+(222, 'Marina', 'R 31', '2015-01-07 00:00:00', 3, NULL, 32, NULL),
+(725, 'Angelo', 'R. X', '2001-03-01 00:00:00', 2, NULL, 21, NULL);
+
+INSERT INTO vencimento
+(cod_venc, nome, tipo, valor)
+VALUES
+(1, 'salario base Analista de Sistemas', 'V', 5000.00),
+(2, 'Salario base Contador', 'V', 3000.00),
+(3, 'Salario Base Engenheiro', 'V', 4500.00),
+(4, 'Salario Base Projetista Software', 'V', 5000.00),
+(5, 'Salario Base Programador de Sistemas', 'V', 3000.00),
+(6, 'Gratificacao Chefia Departamento', 'V', 3750.00),
+(7, 'Gratificacao Chefia Divisao', 'V', 2200.00),
+(8, 'Salario Trabalhador Costrucao Civil', 'V', 800.00),
+(9, 'Auxilio Salario Familia', 'V', 300.00),
+(10, 'Gratificacao Tempo de servico', 'V', 350.00),
+(11, 'Insalubridade', 'V', 800.00),
+(12, 'Gratificacao por titulacao - Doutorado', 'V', 2000.00),
+(13, 'Gratificacao por Titularidade - Mestrado', 'V', 800.00);
+
+/*  Execute this query to drop the tables */
+-- DROP TABLE vencimento;
+-- DROP TABLE empregado;
+-- DROP TABLE emp_venc;
+-- DROP TABLE emp_desc;
+-- DROP TABLE divisao;
+-- DROP TABLE desconto;
+-- DROP TABLE dependente;
+-- DROP TABLE departamento;","with recursive
+vencimentos as (
+    select
+        empregado.matr,
+        empregado.nome,
+        empregado.lotacao as cod_dep,
+        sum(coalesce(vencimento.valor, 0)) as vencimento_total
+    from
+        empregado
+    left join emp_venc on empregado.matr = emp_venc.matr
+    left join vencimento on emp_venc.cod_venc = vencimento.cod_venc
+    group by
+        empregado.matr,
+        empregado.nome,
+        empregado.lotacao
+),
+
+descontos as (
+    select
+        empregado.matr,
+        empregado.nome,
+        empregado.lotacao as cod_dep,
+        sum(coalesce(desconto.valor, 0)) as desconto_total
+    from
+        empregado
+    left join emp_desc on empregado.matr = emp_desc.matr
+    left join desconto on emp_desc.cod_desc = desconto.cod_desc
+    group by
+        empregado.matr,
+        empregado.nome,
+        empregado.lotacao
+),
+
+salarios as (
+    select
+        vencimentos.matr,
+        vencimentos.nome,
+        vencimentos.cod_dep,
+        vencimentos.vencimento_total as salario_bruto,
+        descontos.desconto_total as descontos,
+        vencimentos.vencimento_total
+        - descontos.desconto_total as salario_liquido
+    from
+        vencimentos
+    inner join descontos on vencimentos.matr = descontos.matr
+)
+
+select
+    departamento.nome as ""Departamento"",
+    salarios.nome as ""Empregado"",
+    case
+        when salarios.salario_bruto = 0 then '0'
+        else round(salarios.salario_bruto, 2)
+    end as ""Salario Bruto"",
+    case
+        when salarios.descontos = 0 then '0'
+        else round(salarios.descontos, 2)
+    end as ""Total Desconto"",
+    case
+        when salarios.salario_liquido = 0 then '0'
+        else round(salarios.salario_liquido, 2)
+    end as ""Salario Liquido""
+from
+    salarios
+inner join departamento on salarios.cod_dep = departamento.cod_dep
+order by
+    ""Salario Liquido"" desc;",14.0,0.541,1,2
+2998,The Payback,Gustavo Moraes,https://judge.beecrowd.com/pt/problems/view/2998,"Uma empresa de investimentos deseja calcular o payback de seus clientes ao descobrir qual será o mês em que o acumulado das operações do empreendimento equivalem ou são superiores ao investimento inicial. Por exemplo, o cliente Lucas investiu 1000$ e apenas no terceiro mês obteve o seu payback, já que a soma de todas as suas operações foi superior ao seu investimento. Por outro lado, o cliente Daniel não conseguiu atingir seu payback já que seu investimento foi de 500$ e a soma de todas as suas operações foi 230$. Você precisa mostrar o nome do cliente, o investimento inicial, qual o mês do payback e o valor do retorno (valor acumulado - valor investimento inicial). Além disso, você deve mostrar o resultado ordenado do maior para o menor retorno.",6,1239,2,1,5,0.543,6,Avançado,Função de janela,"WHERE, ORDER BY, Agregação, JOIN, Subconsulta, Função de janela",1,1,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,1,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2998
+
+CREATE TABLE clients (
+    id integer PRIMARY KEY,
+    name varchar(50),
+    investment numeric
+);
+
+GRANT SELECT ON clients TO sql_user;
+
+CREATE TABLE operations (
+    id integer PRIMARY KEY,
+    client_id integer,
+    month integer,
+    profit numeric,
+    FOREIGN KEY (client_id) REFERENCES clients(id)
+);
+
+GRANT SELECT ON operations TO sql_user;insert into clients (id,name,investment) values
+(1,'Daniel',500),
+(2,'Oliveira',2000),
+(3,'Lucas',1000);
+
+
+INSERT INTO operations (id, client_id, month, profit) VALUES
+(1,1,1,230),
+(2,2,1,1000),
+(3,2,2,1000),
+(4,3,1,100),
+(5,3,2,300),
+(6,3,3,900),
+(7,3,4,400);
+
+/*  Execute this query to drop the tables */
+-- DROP TABLE operations;
+-- DROP TABLE clients;","WITH LucroAcumulado AS (
+    SELECT 
+        c.name,
+        c.investment,
+        o.month,
+        -- Calcula a soma acumulada do profit ordenada pelo mês para cada cliente
+        SUM(o.profit) OVER(PARTITION BY o.client_id ORDER BY o.month) AS acumulado
+    FROM 
+        operations o
+    JOIN 
+        clients c ON o.client_id = c.id
+),
+FiltrarPayback AS (
+    SELECT 
+        name,
+        investment,
+        month AS month_of_payback,
+        (acumulado - investment) AS return,
+        -- Cria um ranking para identificar qual foi o PRIMEIRO mês do payback
+        ROW_NUMBER() OVER(PARTITION BY name ORDER BY month) AS rn
+    FROM 
+        LucroAcumulado
+    WHERE 
+        acumulado >= investment
+)
+SELECT 
+    name,
+    investment,
+    month_of_payback,
+    return
+FROM 
+    FiltrarPayback
+WHERE 
+    rn = 1 -- Seleciona apenas o primeiro mês em que atingiu o payback
+ORDER BY 
+    return DESC;",10.0,0.062,1,1
+2999,Maior Sálario da Divisão,Angelo Brayner,https://judge.beecrowd.com/pt/problems/view/2999,"Listar nome e sálario líquido dos empregados que ganham mais que a media salarial de sua divisão e que ganham 8000.00 ou mais. O resultado deve estar ordenado pela coluna lotacao_div.
+
+Dica: Você pode utilizar a função COALESCE(check_expression , 0) para substituir algum valor null por zero; Além disso, você também pode utilizar a função ROUND(value, 2) para exibir os valores com 2 casas decimais.",5,994,0,1,4,0.806,8,Avançado,Subconsulta correlacionada,"WHERE, ORDER BY, Agregação, JOIN, GROUP BY, Subconsulta, Subcons. correl., Tratamento de NULL",1,1,0,0,0,0,1,1,1,0,1,1,0,0,0,1,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 2999
+
+CREATE TABLE departamento(
+    cod_dep int,
+    nome varchar(50),
+    endereco varchar(50)
+);
+
+GRANT SELECT ON departamento TO sql_user;
+-- ------------------------------------------------------------
+CREATE TABLE dependente
+(matr int, nome varchar(50), endereco varchar(50));
+
+GRANT SELECT ON dependente TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE desconto
+(cod_desc int, nome varchar(50), tipo varchar(10), valor numeric);
+
+GRANT SELECT ON desconto TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE divisao
+(cod_divisao int, nome varchar(50), endereco varchar(50), cod_dep int);
+
+GRANT SELECT ON divisao TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE emp_desc
+(cod_desc int, matr int);
+
+GRANT SELECT ON emp_desc TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE emp_venc
+(cod_venc int, matr int);
+
+GRANT SELECT ON emp_venc TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE empregado
+(matr int, nome varchar(50), endereco varchar(50), data_lotacao timestamp, lotacao int,
+gerencia_cod_dep int, lotacao_div int, gerencia_div int);
+
+GRANT SELECT ON empregado TO sql_user;
+
+-- ------------------------------------------------------------
+CREATE TABLE vencimento
+(cod_venc int, nome varchar(50), tipo varchar(10), valor numeric);
+
+GRANT SELECT ON vencimento TO sql_user;
+
+INSERT INTO departamento
+(""cod_dep"", ""nome"", ""endereco"")
+VALUES
+(1, 'Contabilidade', 'R. X'),
+(2, 'TI', 'R. Y'),
+(3, 'Engenharia', 'R. Y');
+
+INSERT INTO dependente
+(matr, nome, endereco)
+VALUES
+(9999, 'Francisco Jose', 'R. Z'),
+(88, 'Maria da Silva', 'R. T'),
+(55, 'Virgulino da Silva', 'R. 31');
+
+INSERT INTO desconto
+(cod_desc, nome, tipo, valor)
+VALUES
+(91, 'IR', 'V', 400.00),
+(92, 'Plano de saude', 'v', 300.00),
+(93, NULL, NULL, NULL);
+
+INSERT INTO divisao
+(cod_divisao, nome, endereco, cod_dep)
+VALUES
+(11, 'Ativo', 'R. X', 1),
+(12, 'Passivo', 'R. X', 1),
+(21, 'Desenvoilvimento de Projetos', 'R. Y', 2),
+(22, 'Analise de Sistemas', 'R. Y', 2),
+(23, 'Programacao', 'R. W', 2),
+(31, 'Concreto', 'R Y', 3),
+(32, 'Calculo Estrutural', 'R. Y', 3);
+
+INSERT INTO emp_desc
+(cod_desc, matr)
+VALUES
+(91, 3),
+(91, 27),
+(91, 9999),
+(92, 27),
+(92, 71),
+(92, 88),
+(92, 9999);
+
+INSERT INTO emp_venc
+(cod_venc, matr)
+VALUES
+(1, 27),
+(1, 88),
+(1, 135),
+(1, 254),
+(1, 431),
+(2, 1),
+(2, 5),
+(2, 7),
+(2, 13),
+(2, 33),
+(2, 9999),
+(3, 3),
+(3, 55),
+(3, 71),
+(3, 222),
+(4, 25),
+(4, 476),
+(5, 371),
+(6, 3),
+(6, 27),
+(6, 9999),
+(7, 5),
+(7, 33),
+(7, 55),
+(7, 71),
+(7, 88),
+(7, 254),
+(7, 476),
+(8, 25),
+(8, 91),
+(9, 1),
+(9, 27),
+(9, 91),
+(9, 135),
+(9, 371),
+(9, 9999),
+(10, 371),
+(10, 9999),
+(11, 91),
+(12, 3),
+(12, 27),
+(12, 254),
+(12, 9999),
+(13, 3),
+(13, 5),
+(13, 7),
+(13, 25),
+(13, 33),
+(13, 88),
+(13, 135);
+
+INSERT INTO empregado
+(matr, nome, endereco, data_lotacao, lotacao, gerencia_cod_dep, lotacao_div, gerencia_div)
+VALUES
+(9999, 'Jose Sampaio', 'R Z', '2006-06-06 00:00:00', 1, 1, 12, NULL),
+(33, 'Jose Maria', 'R 21', '2006-03-01 00:00:00', 1, NULL, 11, 11),
+(1, 'Maria Jose', 'R. 52', '2003-03-01 00:00:00', 1, NULL, 11, NULL),
+(7, 'Yasmim', 'R. 13', '210-07-02 00:00:00', 1, NULL, 11, NULL),
+(5, 'Rebeca', 'R. 1', '2011-04-01 00:00:00', 1, NULL, 12, 12),
+(13, 'Sofia', 'R. 28', '2010-09-09 00:00:00', 1, NULL, 12, NULL),
+(27, 'Andre', 'R. Z', '2005-05-01 00:00:00', 2, 2, 22, NULL),
+(88, 'Yami', 'R. T', '2014-02-01 00:00:00', 2, NULL, 21, 21),
+(431, 'Joao da Silva', 'R. Y', '2011-07-03 00:00:00', 2, NULL, 21, NULL),
+(135, 'Ricardo Reis', 'R. 33', '2009-08-01 00:00:00', 2, NULL, 21, NULL),
+(254, 'Barbara', 'R. Z', '2008-01-03 00:00:00', 2, NULL, 22, 22),
+(371, 'Ines', 'R. Y', '2005-01-01 00:00:00', 2, NULL, 22, NULL),
+(476, 'Flor', 'r. Z', '2015-10-28 00:00:00', 2, NULL, 23, 23),
+(25, 'Lina', 'R. 67', '2014-09-01 00:00:00', 2, NULL, 23, NULL),
+(3, 'Jose da Silva', 'R. 8', '2011-01-02 00:00:00', 3, 3, 31, NULL),
+(71, 'Silverio dos Reis', 'r. C', '2009-01-05 00:00:00', 3, NULL, 31, 31),
+(91, 'Reis da Silva', 'R. Z', '2011-11-05 00:00:00', 3, NULL, 31, NULL),
+(55, 'Lucas', 'R 31', '2013-07-01 00:00:00', 3, NULL, 32, 32),
+(222, 'Marina', 'R 31', '2015-01-07 00:00:00', 3, NULL, 32, NULL),
+(725, 'Angelo', 'R. X', '2001-03-01 00:00:00', 2, NULL, 21, NULL);
+
+INSERT INTO vencimento
+(cod_venc, nome, tipo, valor)
+VALUES
+(1, 'salario base Analista de Sistemas', 'V', 5000.00),
+(2, 'Salario base Contador', 'V', 3000.00),
+(3, 'Salario Base Engenheiro', 'V', 4500.00),
+(4, 'Salario Base Projetista Software', 'V', 5000.00),
+(5, 'Salario Base Programador de Sistemas', 'V', 3000.00),
+(6, 'Gratificacao Chefia Departamento', 'V', 3750.00),
+(7, 'Gratificacao Chefia Divisao', 'V', 2200.00),
+(8, 'Salario Trabalhador Costrucao Civil', 'V', 800.00),
+(9, 'Auxilio Salario Familia', 'V', 300.00),
+(10, 'Gratificacao Tempo de servico', 'V', 350.00),
+(11, 'Insalubridade', 'V', 800.00),
+(12, 'Gratificacao por titulacao - Doutorado', 'V', 2000.00),
+(13, 'Gratificacao por Titularidade - Mestrado', 'V', 800.00);
+
+/*  Execute this query to drop the tables */
+-- DROP TABLE vencimento;
+-- DROP TABLE empregado;
+-- DROP TABLE emp_venc;
+-- DROP TABLE emp_desc;
+-- DROP TABLE divisao;
+-- DROP TABLE desconto;
+-- DROP TABLE dependente;
+-- DROP TABLE departamento;","WITH SalarioEmpregado AS (
+    SELECT 
+        e.matr,
+        e.nome,
+        e.lotacao_div,
+        -- Soma dos vencimentos do empregado (se for null, vira 0)
+        COALESCE((
+            SELECT SUM(v.valor) 
+            FROM emp_venc ev 
+            JOIN vencimento v ON ev.cod_venc = v.cod_venc 
+            WHERE ev.matr = e.matr
+        ), 0) - 
+        -- Subtrai a soma dos descontos do empregado (se for null, vira 0)
+        COALESCE((
+            SELECT SUM(d.valor) 
+            FROM emp_desc ed 
+            JOIN desconto d ON ed.cod_desc = d.cod_desc 
+            WHERE ed.matr = e.matr
+        ), 0) AS salario_liquido
+    FROM 
+        empregado e
+),
+MediaDivisao AS (
+    SELECT 
+        lotacao_div,
+        AVG(salario_liquido) AS media_salario
+    FROM 
+        SalarioEmpregado
+    GROUP BY 
+        lotacao_div
+)
+SELECT 
+    se.nome,
+    ROUND(se.salario_liquido, 2) AS salario
+FROM 
+    SalarioEmpregado se
+JOIN 
+    MediaDivisao md ON se.lotacao_div = md.lotacao_div
+WHERE 
+    se.salario_liquido > md.media_salario  -- Ganha mais que a média da divisão
+    AND se.salario_liquido >= 8000.00      -- Condição: ganha 8000.00 ou mais
+ORDER BY 
+    se.lotacao_div ASC;",14.0,-1.403,1,2
+3001,Update sem Where,Gustavo Moraes,https://judge.beecrowd.com/pt/problems/view/3001,"Seu amigo Zé Maria se encontra em uma emboscada porque fez um update sem where e acabou zerando todos os valores da coluna price. Para sua sorte, o preço pode ser calculado novamente sabendo o tipo do produto.
+
+Se o tipo do produto é igual A, o preço será 20.0
+Se o tipo do produto é igual B, o preço será 70.0
+Se o tipo do produto é igual C, o preço será 530.5
+O seu trabalho é mostrar o nome e o preço de todos os produtos. Você também deve mostrar os produtos em conjuntos com a seguinte ordem: primeiro todos os produtos do tipo A, segundo o tipo B, e por último o tipo C. Além disso, os produtos de cada um dos conjuntos (A,B,C), devem está ordenados pelo seu ID de forma decrescente.",6,2811,0,1,8,0.532,2,Intermediário,CASE,"ORDER BY, CASE",0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem 3001
+
+CREATE TABLE products (
+id numeric PRIMARY KEY,
+name varchar(50),
+type char,
+price numeric
+);
+
+GRANT SELECT ON products TO sql_user;
+
+INSERT INTO products (id , name, type, price)
+VALUES
+(1, 'Monitor',  'B', 0),
+(2, 'Headset',  'A', 0),
+(3, 'PC Case',  'A', 0),
+(4, 'Computer Desk', 'C', 0),
+(5, 'Gaming Chair', 'C', 0),
+(6, 'Mouse',  'A', 0);
+
+/*  Execute this query to drop the tables */
+-- DROP TABLE products;","SELECT name, 
+	CASE type
+		WHEN 'A' THEN 20.0
+		WHEN 'B' THEN 70.0
+		WHEN 'C' THEN 530.5
+	END price
+FROM products
+ORDER BY type, id DESC",3.5,1.652,0,1
+3480,Cadeiras adjacentes,Gustavo Moraes,https://judge.beecrowd.com/pt/problems/view/3480,"Encontre as cadeiras adjacentes e disponíveis de cada fila da sala de aula. A primeira coluna do resultado deve conter o identificador da fila, a segunda coluna o número da cadeira da esquerda e a terceira o número da cadeira da direita. O resultado deve estar ordenado pelo valor da segunda coluna do resultado (left).
+
+ ",2,911,0,1,3,0.582,3,Intermediário,JOIN,"WHERE, ORDER BY, JOIN",1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,"--- SBBD 2023 - 3a Maratona SQL
+--- Problema: Cadeiras Adjacentes
+
+CREATE TABLE chairs (
+    id numeric PRIMARY KEY,
+    queue numeric,
+    available boolean
+);
+
+GRANT SELECT ON chairs TO sql_user;
+
+-- ------------------------------------------------------------
+-- Inserindo os dados exatos do problema (Filas 1, 2, 3 e 4)
+-- ------------------------------------------------------------
+
+INSERT INTO chairs (id, queue, available) VALUES
+(1, 1, FALSE),
+(2, 1, FALSE),
+(3, 1, TRUE),
+(4, 1, FALSE),
+(5, 1, FALSE),
+(6, 1, FALSE),
+(7, 1, TRUE),
+(8, 1, TRUE),
+(9, 2, TRUE),
+(10, 2, FALSE),
+(11, 2, TRUE),
+(12, 2, TRUE),
+(13, 2, FALSE),
+(14, 2, TRUE),
+(15, 2, TRUE),
+(16, 2, FALSE),
+(17, 3, TRUE),
+(18, 3, FALSE),
+(19, 3, TRUE),
+(20, 3, FALSE),
+(21, 3, TRUE),
+(22, 3, TRUE),
+(23, 3, FALSE),
+(24, 3, FALSE),
+(25, 4, TRUE),
+(26, 4, FALSE),
+(27, 4, FALSE),
+(28, 4, TRUE),
+(29, 4, TRUE),
+(30, 4, FALSE),
+(31, 4, FALSE),
+(32, 4, TRUE);
+
+/* Execute esta query para remover a tabela se necessário */
+-- DROP TABLE chairs;","SELECT 
+    c1.queue,
+    c1.id AS ""left"",
+    c2.id AS ""right""
+FROM 
+    chairs c1
+JOIN 
+    chairs c2 ON c1.queue = c2.queue AND c2.id = c1.id + 1
+WHERE 
+    c1.available = TRUE 
+    AND c2.available = TRUE
+ORDER BY 
+    ""left"" ASC;",5.5,-0.781,0,0
+3481,Classificando uma Árvore,Gustavo Moraes,https://judge.beecrowd.com/pt/problems/view/3481,"Dado a seguinte árvore binária balanceada armazenada na tabela nodes, classifique cada nó com os tipos LEAF, INNER, e ROOT. Apresente o resultado ordenado pelo valor do identificador do nó.
+
+ 
+
+",2,815,0,1,2,0.933,7,Avançado,Subconsulta,"WHERE, ORDER BY, DISTINCT, IN, Subconsulta, CASE, Tratamento de NULL",1,1,1,0,1,0,0,0,0,0,1,0,0,1,0,1,0,0,0,0,0,"--- Beecrowd SQL
+--- Problem ""Classificando uma Árvore""
+--- Criador do Problema: Gustavo Moraes (Brasil)
+
+CREATE TABLE nodes (
+    node_id numeric,
+    pointer numeric
+);
+
+GRANT SELECT ON nodes TO sql_user;
+
+-- ------------------------------------------------------------
+-- Inserindo os dados do exemplo da árvore binária balanceada
+-- ------------------------------------------------------------
+
+INSERT INTO nodes (node_id, pointer)
+VALUES
+(50, 30),
+(50, 75),
+(30, 15),
+(30, 35),
+(15, 1),
+(15, 20),
+(35, 32),
+(35, 40),
+(1, null),
+(20, null),
+(32, null),
+(40, null),
+(75, 60),
+(75, 90),
+(60, 55),
+(60, 70),
+(90, 80),
+(90, 95),
+(55, null),
+(70, null),
+(80, null),
+(95, null);
+
+/* Execute esta query para remover a tabela se necessário */
+-- DROP TABLE nodes;","SELECT 
+    DISTINCT node_id,
+    CASE 
+        -- 1. Se o node_id NUNCA aparece na coluna pointer de ninguém, ele é a RAIZ
+        WHEN node_id NOT IN (SELECT pointer FROM nodes WHERE pointer IS NOT NULL) THEN 'ROOT'
+        
+        -- 2. Se o pointer dele é NULL, ele não tem filhos, logo é FOLHA
+        WHEN pointer IS NULL THEN 'LEAF'
+        
+        -- 3. Se não for raiz nem folha, é INTERNO
+        ELSE 'INNER'
+    END AS type
+FROM 
+    nodes
+ORDER BY 
+    node_id ASC;",8.5,-1.515,0,0
+3482,Seguidores,Gustavo Moraes,https://judge.beecrowd.com/pt/problems/view/3482,"Em uma rede social com vários usuários que compartilham informações é comum que um usuário siga outros. Determine quais os usuários se seguem, por exemplo Franciso segue Laura e Laura segue Francisco. O resultado deve conter duas colunas com o nome dos dois usuários que se seguem entre si. A primeira coluna deve conter o nome do usuário com menor número de postagens e segunda o maior número de postagens, por exemplo entre Francisco e Laura, Francisco tem 23 postagens e Laura 55, logo Francisco aparece na primeira coluna e Laura na segunda coluna. Além disso, você deve ordernar o resultado pelo id do úsuario da primeira coluna.
+
+ ",2,763,4,1,5,0.583,4,Intermediário,JOIN,"WHERE, ORDER BY, JOIN, CASE",1,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Copyright URI Online Judge
+--- www.urionlinejudge.com.br
+--- Problem XXXX
+
+CREATE TABLE users (
+    userid numeric PRIMARY KEY,
+    username varchar(50),
+    posts numeric
+);
+
+CREATE TABLE followers (
+    followerid numeric PRIMARY KEY,
+    useridfk numeric,
+    followinguseridfk numeric,
+    FOREIGN KEY (useridfk) REFERENCES users(userid),
+    FOREIGN KEY (followinguseridfk) REFERENCES users(userid)
+);
+
+GRANT SELECT ON users TO sql_user;
+GRANT SELECT ON followers TO sql_user;
+
+INSERT INTO users (userid, username, posts)
+VALUES
+(1, 'Francisco', 23),
+(2, 'Brenda', 51),
+(3, 'Helena', 12),
+(4, 'Miguel', 70),
+(5, 'Laura', 55),
+(6, 'Arthur', 2),
+(7, 'Alice', 3);
+
+INSERT INTO followers (followerid, useridfk, followinguseridfk)
+VALUES
+(1, 1, 5),
+(2, 2, 4),
+(3, 3, 7),
+(4, 3, 6),
+(5, 4, 2),
+(6, 4, 5),
+(7, 5, 1),
+(8, 5, 3),
+(9, 5, 4),
+(10, 5, 2),
+(11, 7, 3);
+
+/* Execute this query to drop the tables */
+
+-- DROP TABLE followers;
+-- DROP TABLE users;","SELECT 
+  CASE WHEN u1.posts < u2.posts THEN u1.user_name ELSE u2.user_name END AS u1_name,
+  CASE WHEN u1.posts < u2.posts THEN u2.user_name ELSE u1.user_name END AS u2_name
+FROM followers f1
+JOIN followers f2 
+  ON f1.user_id_fk = f2.following_user_id_fk 
+ AND f1.following_user_id_fk = f2.user_id_fk
+JOIN users u1 ON f1.user_id_fk = u1.user_id
+JOIN users u2 ON f1.following_user_id_fk = u2.user_id
+WHERE f1.user_id_fk < f1.following_user_id_fk
+ORDER BY (CASE WHEN u1.posts < u2.posts THEN u1.user_id ELSE u2.user_id END);",9.0,-1.638,0,1
+3483,Segundo Maior e Menor,Gustavo Moraes,https://judge.beecrowd.com/pt/problems/view/3483,Encontre a cidade com a segunda maior população e em seguida a segunda menor população.,2,1242,0,1,1,0.733,3,Intermediário,Subconsulta,"ORDER BY, Subconsulta, UNION",0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,"--- URI Online Judge SQL
+--- Problem: Segundo Maior e Menor
+
+CREATE TABLE cities (
+    id numeric PRIMARY KEY,
+    city_name varchar(50),
+    population numeric
+);
+
+GRANT SELECT ON cities TO sql_user;
+
+INSERT INTO cities (id, city_name, population) VALUES
+(1, 'São Paulo', 12396372),
+(2, 'Rio de Janeiro', 6775561),
+(3, 'Brasília', 3094325),
+(4, 'Salvador', 2900319),
+(5, 'Fortaleza', 2703391),
+(6, 'Belo Horizonte', 2530701),
+(7, 'Manaus', 2255903),
+(8, 'Curitiba', 1963726),
+(9, 'Recife', 1661017),
+(10, 'Goiânia', 1555626),
+(11, 'Belém', 1506420),
+(12, 'Porto Alegre', 1492530);
+
+/* Query to find second largest and second smallest population cities */
+(SELECT city_name, population
+ FROM cities
+ ORDER BY population DESC
+ LIMIT 1 OFFSET 1)
+UNION ALL
+(SELECT city_name, population
+ FROM cities
+ ORDER BY population ASC
+ LIMIT 1 OFFSET 1)
+ORDER BY population DESC;
+
+/* To drop the table */
+-- DROP TABLE cities;","(SELECT city_name, population
+ FROM cities
+ ORDER BY population DESC
+ LIMIT 1 OFFSET 1)
+UNION ALL
+(SELECT city_name, population
+ FROM cities
+ ORDER BY population ASC
+ LIMIT 1 OFFSET 1)
+ORDER BY population DESC;",4.5,-0.537,0,0
+3492,Ranking turismo CE,Arlino Magalhães,https://judge.beecrowd.com/pt/problems/view/3492,"A Secretaria de Turismo do Ceará está desenvolvendo um ranking de cidades turísticas. Eles querem um relatório que mostre não apenas quantos pontos turísticos cada cidade possui, mas também:
+O nome da cidade e sua região (ex.: Litoral, Sertão, Cariri).
+
+A quantidade total de pontos turísticos cadastrados.
+A média de avaliações dos pontos turísticos daquela cidade (cada ponto turístico recebe notas de visitantes, de 1 a 5).
+Uma coluna chamada ranking_regional, que mostre a posição da cidade dentro da sua própria região, ordenada pela média de avaliações (decrescente).
+
+Somente cidades com pelo menos 2 pontos turísticos cadastrados devem aparecer no relatório.
+
+O resultado deve estar ordenado pela região e pelo ranking_regional​​​​​​",1,50,2,0,7,0.658,9,Avançado,Função de janela,"ORDER BY, DISTINCT, Agregação, JOIN, GROUP BY, HAVING, Subconsulta, CAST, Função de janela",0,1,1,0,0,0,1,1,1,1,1,0,0,0,0,0,1,0,1,0,0,"--- Secretaria de Turismo do Ceará
+--- Ranking de Cidades Turísticas
+--- Relatório com média de avaliações e ranking regional
+
+CREATE TABLE Cidades (
+  cidade_id numeric PRIMARY KEY,
+  nome_cidade varchar(50),
+  regiao varchar(50)
+);
+
+CREATE TABLE PontosTuristicos (
+  ponto_id numeric PRIMARY KEY,
+  nome_ponto varchar(100),
+  cidade_id numeric REFERENCES Cidades (cidade_id)
+);
+
+CREATE TABLE Avaliacoes (
+  avaliacao_id numeric PRIMARY KEY,
+  ponto_id numeric REFERENCES PontosTuristicos (ponto_id),
+  nota numeric(2,1)
+);
+
+
+INSERT INTO Cidades (cidade_id, nome_cidade, regiao)
+VALUES
+  (1, 'Fortaleza',     'Litoral'),
+  (2, 'Jericoacoara',  'Litoral'),
+  (3, 'Juazeiro',      'Cariri'),
+  (4, 'Sobral',        'Sertão');
+
+INSERT INTO PontosTuristicos (ponto_id, nome_ponto, cidade_id)
+VALUES
+  (1, 'Praia de Iracema',      1),
+  (2, 'Beira Mar',             1),
+  (3, 'Pedra Furada',          2),
+  (4, 'Lagoa Azul',            2),
+  (5, 'Horto do Padre Cícero', 3),
+  (6, 'Museu Dom José',        4);
+
+INSERT INTO Avaliacoes (avaliacao_id, ponto_id, nota)
+VALUES
+  (1, 1, 5),
+  (2, 1, 4),
+  (3, 2, 3),
+  (4, 3, 5),
+  (5, 3, 4),
+  (6, 4, 4),
+  (7, 5, 5),
+  (8, 5, 5);","WITH medias AS (
+    SELECT
+        c.cidade_id,
+        c.nome_cidade,
+        c.regiao,
+        COUNT(DISTINCT pt.ponto_id)                  AS qtd_pontos,
+        ROUND(AVG(a.nota::NUMERIC), 2)               AS media_avaliacoes
+    FROM Cidades c
+    JOIN PontosTuristicos pt ON pt.cidade_id = c.cidade_id
+    LEFT JOIN Avaliacoes a   ON a.ponto_id   = pt.ponto_id
+    GROUP BY c.cidade_id, c.nome_cidade, c.regiao
+    HAVING COUNT(DISTINCT pt.ponto_id) >= 2
+)
+SELECT
+    nome_cidade,
+    regiao,
+    qtd_pontos,
+    media_avaliacoes,
+    RANK() OVER (
+        PARTITION BY regiao
+        ORDER BY media_avaliacoes DESC
+    ) AS ranking_regional
+FROM medias
+ORDER BY regiao, ranking_regional;",12.5,-2.98,1,1
